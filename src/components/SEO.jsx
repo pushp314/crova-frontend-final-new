@@ -2,8 +2,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-    title = 'Crova - Premium Fashion & Lifestyle',
-    description = 'Discover curated collections of premium fashion, designed for elegance and comfort. Shop the latest trends in women\'s and men\'s clothing.',
+    title = 'CROVA - Premium Fashion Store | Shop Men & Women',
+    description = 'Shop the latest premium fashion trends for men and women at CROVA. High quality, elegant designs, and free shipping.',
     image = 'https://crova.in/og-image.jpg', // You should upload this image to public folder or use external
     url = typeof window !== 'undefined' ? window.location.href : 'https://crova.in',
     type = 'website'
