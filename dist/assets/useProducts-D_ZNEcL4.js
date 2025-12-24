@@ -1,0 +1,1 @@
+import{g as r,a as u}from"./index-D7lwuD4-.js";const s=(t={})=>r({queryKey:["products",t],queryFn:async()=>{const{data:e}=await u.get("/products",{params:t});return e},keepPreviousData:!0}),o=t=>r({queryKey:["products",t],queryFn:async()=>{const{data:e}=await u.get(`/products/${t}`);return e},enabled:!!t});export{o as a,s as u};
