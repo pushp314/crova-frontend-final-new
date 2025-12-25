@@ -364,5 +364,11 @@ const AdminProducts = () => {
                             </Link>
                         </div>
                     </div>
-                    export default AdminProducts;
-                    ```
+                </div>
+            </div>
+        )}
+        </div>
+    );
+};
+
+export default AdminProducts;
