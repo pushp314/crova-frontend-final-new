@@ -115,6 +115,36 @@ const UserProfile = () => {
         }
     };
 
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
+        try {
+            if (passwordData.newPassword !== passwordData.confirmPassword) {
+                toast.error('New passwords do not match');
+                return;
+            }
+
+            setLoadingPassword(true);
+            const { data } = await api.post('/users/change-password', {
+                currentPassword: passwordData.currentPassword,
+                newPassword: passwordData.newPassword
+            });
+
+            if (data.success) {
+                toast.success('Password updated successfully');
+                setPasswordData({
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                });
+            }
+        } catch (error) {
+            console.error('Error changing password:', error);
+            toast.error(error.response?.data?.message || 'Failed to update password');
+        } finally {
+            setLoadingPassword(false);
+        }
+    };
+
     if (!user) {
         return (
             <div className="min-h-screen pt-32 px-4 flex justify-center">
