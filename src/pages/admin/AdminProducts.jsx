@@ -25,7 +25,8 @@ const AdminProducts = () => {
             params.includeInactive = true;
 
             const { data } = await api.get('/products', { params });
-            setProducts(data.products || []);
+            // Handle nested response structure { data: { products: [] } } vs { products: [] }
+            setProducts(data.data?.products || data.products || []);
         } catch (error) {
             console.error('Error fetching products:', error);
         } finally {
