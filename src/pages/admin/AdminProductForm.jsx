@@ -22,13 +22,28 @@ const AdminProductForm = () => {
     });
     const [images, setImages] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
+    const [collections, setCollections] = useState([]);
+    const [selectedCollections, setSelectedCollections] = useState([]);
+    const [discount, setDiscount] = useState('');
 
     useEffect(() => {
         fetchCategories();
+        fetchCollections();
         if (isEditMode) {
             fetchProduct();
         }
     }, [id]);
+
+    const fetchCollections = async () => {
+        try {
+            const { data } = await api.get('/collections');
+            if (data.success) {
+                setCollections(data.data?.collections || data.collections || []);
+            }
+        } catch (error) {
+            console.error('Error fetching collections:', error);
+        }
+    };
 
     const fetchCategories = async () => {
         try {
@@ -61,6 +76,17 @@ const AdminProductForm = () => {
                 if (product.images) {
                     setPreviewImages(product.images.map(img => img.imagePath));
                 }
+
+                // Set collections
+                if (product.collections) {
+                    setSelectedCollections(product.collections.map(c => c.id));
+                }
+
+                // Calculate discount
+                if (product.comparePrice && product.price) {
+                    const d = Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100);
+                    setDiscount(d);
+                }
             }
         } catch (error) {
             console.error('Error fetching product:', error);
@@ -77,6 +103,39 @@ const AdminProductForm = () => {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+
+        // Discount Logic
+        if (name === 'comparePrice' || name === 'price') {
+            const newPrice = name === 'price' ? parseFloat(value) : parseFloat(formData.price);
+            const newComparePrice = name === 'comparePrice' ? parseFloat(value) : parseFloat(formData.comparePrice);
+
+            if (newPrice && newComparePrice && newComparePrice > newPrice) {
+                const d = Math.round(((newComparePrice - newPrice) / newComparePrice) * 100);
+                setDiscount(d);
+            } else {
+                setDiscount('');
+            }
+        }
+    };
+
+    const handleDiscountChange = (e) => {
+        const val = e.target.value;
+        setDiscount(val);
+
+        if (val && formData.comparePrice) {
+            const originalPrice = parseFloat(formData.comparePrice);
+            const discountPercent = parseFloat(val);
+            const newPrice = Math.round(originalPrice * (1 - discountPercent / 100));
+            setFormData(prev => ({ ...prev, price: newPrice }));
+        }
+    };
+
+    const toggleCollection = (collectionId) => {
+        setSelectedCollections(prev =>
+            prev.includes(collectionId)
+                ? prev.filter(id => id !== collectionId)
+                : [...prev, collectionId]
+        );
     };
 
     const handleImageChange = (e) => {
@@ -106,6 +165,10 @@ const AdminProductForm = () => {
             data.append('category', formData.category);
             data.append('stock', formData.stock);
             data.append('isActive', formData.isActive);
+
+            selectedCollections.forEach(id => {
+                data.append('collections[]', id);
+            });
 
             images.forEach(image => {
                 data.append('images', image);
@@ -206,6 +269,21 @@ const AdminProductForm = () => {
                         </div>
 
                         <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Discount (%)</label>
+                            <input
+                                type="number"
+                                value={discount}
+                                onChange={handleDiscountChange}
+                                min="0"
+                                max="99"
+                                placeholder="e.g. 50"
+                                className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-50"
+                            />
+                            <p className="text-xs text-blue-600 mt-1">Auto-updates selling price</p>
+                        </div>
+
+
+                        <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                             <select
                                 required
@@ -247,6 +325,27 @@ const AdminProductForm = () => {
                                 <span className="font-medium text-gray-700">Active (Visible in store)</span>
                             </label>
                         </div>
+                    </div>
+                </div>
+
+                {/* Collections */}
+                <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-6">
+                    <h2 className="text-lg font-semibold">Collections</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {collections.map(collection => (
+                            <label key={collection.id} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${selectedCollections.includes(collection.id)
+                                    ? 'border-black bg-gray-50 ring-1 ring-black'
+                                    : 'border-gray-200 hover:border-gray-300'
+                                }`}>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCollections.includes(collection.id)}
+                                    onChange={() => toggleCollection(collection.id)}
+                                    className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                                />
+                                <span className="text-sm font-medium text-gray-700">{collection.title}</span>
+                            </label>
+                        ))}
                     </div>
                 </div>
 

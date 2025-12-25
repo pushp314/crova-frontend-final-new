@@ -44,7 +44,9 @@ const Checkout = lazy(() => import("./pages/Checkout"));
 const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const AdminProductForm = lazy(() => import("./pages/admin/AdminProductForm"));
-const AdminCollections = lazy(() => import("./pages/admin/AdminCollections"));
+const AdminCategories = lazy(() => import('./pages/admin/AdminCategories'));
+const AdminCategoryForm = lazy(() => import('./pages/admin/AdminCategoryForm'));
+const AdminCollections = lazy(() => import('./pages/admin/AdminCollections'));
 const AdminCollectionForm = lazy(() => import("./pages/admin/AdminCollectionForm"));
 const AdminDesignInquiries = lazy(() => import("./pages/admin/AdminDesignInquiries"));
 const CustomDesign = lazy(() => import("./pages/CustomDesign"));
@@ -208,6 +210,9 @@ function App() {
         <Route path="products" element={<AdminProducts />} />
         <Route path="products/new" element={<AdminProductForm />} />
         <Route path="products/:id/edit" element={<AdminProductForm />} />
+        <Route path="categories" element={<AdminCategories />} />
+        <Route path="categories/new" element={<AdminCategoryForm />} />
+        <Route path="categories/:id/edit" element={<AdminCategoryForm />} />
         <Route path="collections" element={<AdminCollections />} />
         <Route path="collections/new" element={<AdminCollectionForm />} />
         <Route path="collections/:id/edit" element={<AdminCollectionForm />} />
