@@ -114,8 +114,8 @@ const AdminDashboard = () => {
                             key={d}
                             onClick={() => setPeriod(d)}
                             className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${period === d
-                                    ? 'bg-black text-white shadow-sm'
-                                    : 'text-gray-600 hover:bg-gray-100'
+                                ? 'bg-black text-white shadow-sm'
+                                : 'text-gray-600 hover:bg-gray-100'
                                 }`}
                         >
                             Last {d} Days
@@ -176,7 +176,7 @@ const AdminDashboard = () => {
                         <TrendingUp className="w-5 h-5 text-gray-500" />
                         Sales Trend
                     </h2>
-                    <div className="h-[300px] w-full">
+                    <div className="h-[300px] w-full" style={{ minWidth: 0 }}>
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={analytics?.dailyRevenue || []}>
                                 <defs>
@@ -218,7 +218,7 @@ const AdminDashboard = () => {
                 {/* Order Status Pie */}
                 <div className="bg-white rounded-xl border border-gray-200 p-6">
                     <h2 className="text-lg font-bold text-gray-900 mb-6">Order Status</h2>
-                    <div className="h-[300px] w-full">
+                    <div className="h-[300px] w-full" style={{ minWidth: 0 }}>
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie

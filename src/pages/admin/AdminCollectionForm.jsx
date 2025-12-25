@@ -9,6 +9,8 @@ const AdminCollectionForm = () => {
     const isEdit = !!id;
 
     const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [selectedProducts, setSelectedProducts] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         slug: '',
@@ -23,10 +25,20 @@ const AdminCollectionForm = () => {
     const [addProductId, setAddProductId] = useState('');
 
     useEffect(() => {
+        fetchProducts();
         if (isEdit) {
             fetchCollection();
         }
     }, [id]);
+
+    const fetchProducts = async () => {
+        try {
+            const { data } = await api.get('/products', { params: { includeInactive: true, limit: 100 } });
+            setProducts(data.data?.products || data.products || []);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
 
     const fetchCollection = async () => {
         try {
@@ -41,6 +53,10 @@ const AdminCollectionForm = () => {
             const found = collections.find(c => c.id === id);
 
             if (found) {
+                if (found.products) {
+                    setSelectedProducts(found.products.map(p => p.id));
+                }
+
                 // Formatting theme/text color if they were classes before
                 let themeColor = found.theme;
                 if (themeColor.startsWith('bg-')) themeColor = '#ffffff'; // Fallback for legacy classes
@@ -56,10 +72,6 @@ const AdminCollectionForm = () => {
                     theme: themeColor,
                     textColor: txtColor,
                 });
-                // If backend returned products in list, set them
-                // Note: The list endpoint limits products to 4. We might need a full fetch.
-                // Assuming we can manage products separately or this form just edits metadata for now.
-                // For MVP: Metadata only, product management separate or improved later.
             }
         } catch (error) {
             console.error('Error fetching collection:', error);
@@ -81,17 +93,13 @@ const AdminCollectionForm = () => {
         setLoading(true);
 
         try {
-            const payload = { ...formData };
+            const payload = { ...formData, products: selectedProducts };
             // Ensure theme/textColor are hex
             if (!payload.theme.startsWith('#') && !payload.theme.startsWith('bg-')) {
                 payload.theme = `#${payload.theme}`; // unlikely if input type=color
             }
 
             if (isEdit) {
-                // Update implementation (we need an Update endpoint in backend! I only made Create/Delete!)
-                // Use create for now as placeholder or add update.
-                // WAIT: I missed adding UPDATE route in backend implementation!
-                // I will add it shortly.
                 await api.put(`/collections/${id}`, payload);
             } else {
                 await api.post('/collections', payload);
@@ -215,6 +223,44 @@ const AdminCollectionForm = () => {
                                     className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
                                 />
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4 pt-6 border-t border-gray-100">
+                        <h3 className="text-lg font-medium text-gray-900">Select Products</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 max-h-60 overflow-y-auto p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            {products.map(product => (
+                                <label key={product.id} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${selectedProducts.includes(product.id)
+                                    ? 'border-black bg-white shadow-sm ring-1 ring-black'
+                                    : 'border-transparent hover:bg-gray-100'
+                                    }`}>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedProducts.includes(product.id)}
+                                        onChange={() => {
+                                            setSelectedProducts(prev =>
+                                                prev.includes(product.id)
+                                                    ? prev.filter(id => id !== product.id)
+                                                    : [...prev, product.id]
+                                            );
+                                        }}
+                                        className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                                    />
+                                    <div className="flex items-center gap-2 overflow-hidden">
+                                        {product.images?.[0] && (
+                                            <img
+                                                src={product.images[0].imagePath.startsWith('http') ? product.images[0].imagePath : `${import.meta.env.VITE_API_URL}${product.images[0].imagePath}`}
+                                                alt=""
+                                                className="w-8 h-8 rounded object-cover bg-gray-200"
+                                            />
+                                        )}
+                                        <div className="truncate">
+                                            <p className="text-sm font-medium text-gray-900 truncate">{product.name}</p>
+                                            <p className="text-xs text-gray-500">₹{product.price}</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            ))}
                         </div>
                     </div>
                 </div>

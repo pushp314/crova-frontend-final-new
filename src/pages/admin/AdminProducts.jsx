@@ -21,6 +21,9 @@ const AdminProducts = () => {
             if (filter === 'featured') params.featured = true;
             if (filter === 'inactive') params.isActive = false;
 
+            // Always include inactive products for admin management
+            params.includeInactive = true;
+
             const { data } = await api.get('/products', { params });
             setProducts(data.products || []);
         } catch (error) {
