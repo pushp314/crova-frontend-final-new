@@ -55,11 +55,7 @@ const AdminLayout = () => {
                     {/* Logo */}
                     <div className="h-16 flex items-center justify-between px-6 border-b border-gray-100">
                         <Link to="/" className="flex items-center gap-2">
-                            <img
-                                src="https://framerusercontent.com/images/EQrwRO1DcUwMjEwIscE6PHiIQw.svg"
-                                alt="Crova"
-                                className="h-6"
-                            />
+                            <span className="text-xl font-bold font-display tracking-tight">CROVA</span>
                             <span className="text-sm font-medium text-gray-500">Admin</span>
                         </Link>
                         <button
