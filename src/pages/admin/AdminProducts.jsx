@@ -366,9 +366,7 @@ const AdminProducts = () => {
                     </div>
                 </div>
             </div>
-        )}
-        </div>
-    );
+            );
 };
 
-export default AdminProducts;
+            export default AdminProducts;
