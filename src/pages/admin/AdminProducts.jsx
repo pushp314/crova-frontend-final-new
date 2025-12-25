@@ -12,6 +12,7 @@ const AdminProducts = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
+        console.log('AdminProducts updated. Selected:', selectedProduct);
         fetchProducts();
     }, [filter]);
 
