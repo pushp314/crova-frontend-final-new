@@ -248,7 +248,7 @@ const AdminDashboard = () => {
                 {/* Payment Methods */}
                 <div className="bg-white rounded-xl border border-gray-200 p-6">
                     <h2 className="text-lg font-bold text-gray-900 mb-6">Payment Methods</h2>
-                    <div className="h-[300px] w-full">
+                    <div className="h-[300px] w-full" style={{ minWidth: 0 }}>
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={stats?.paymentSplit || []} layout="vertical">
                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
