@@ -49,7 +49,7 @@ const AdminProductForm = () => {
         try {
             const { data } = await api.get('/categories');
             if (data.success) {
-                setCategories(data.categories || []);
+                setCategories(data.data?.categories || data.categories || []);
             }
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -334,8 +334,8 @@ const AdminProductForm = () => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {collections.map(collection => (
                             <label key={collection.id} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${selectedCollections.includes(collection.id)
-                                    ? 'border-black bg-gray-50 ring-1 ring-black'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                ? 'border-black bg-gray-50 ring-1 ring-black'
+                                : 'border-gray-200 hover:border-gray-300'
                                 }`}>
                                 <input
                                     type="checkbox"
