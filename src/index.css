@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: #F5F5F5;
+    --background: #FFFFFF;
     --foreground: #000000;
     --card: #FFFFFF;
     --card-foreground: #000000;
@@ -14,35 +14,35 @@
     --popover-foreground: #000000;
     --primary: #000000;
     --primary-foreground: #FFFFFF;
-    --secondary: #FFFFFF;
+    --secondary: #F4F4F5;
     --secondary-foreground: #000000;
-    --muted: #F5F5F5;
-    --muted-foreground: #666666;
+    --muted: #F4F4F5;
+    --muted-foreground: #737373;
     --accent: #F4F4F5;
     --accent-foreground: #000000;
-    --destructive: #EF4444;
+    --destructive: #000000;
     --destructive-foreground: #FFFFFF;
-    --border: #F2F2F2;
-    --input: #F2F2F2;
+    --border: #E5E5E5;
+    --input: #E5E5E5;
     --ring: #000000;
-    --radius: 1rem;
+    --radius: 0px; 
     --sidebar-background: #FFFFFF;
-    --sidebar-foreground: #666666;
+    --sidebar-foreground: #737373;
     --sidebar-primary: #000000;
     --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #F5F5F5;
+    --sidebar-accent: #F4F4F5;
     --sidebar-accent-foreground: #000000;
-    --sidebar-border: #F2F2F2;
+    --sidebar-border: #E5E5E5;
     --sidebar-ring: #000000;
 
-    /* Custom Brand Colors */
-    --color-lavender: #E4E4E7;
+    /* Custom Brand Colors - Mapped to Grayscale */
+    --color-lavender: #F4F4F5;
     --color-mint: #F4F4F5;
-    --color-pink: #D4D4D8;
-    --color-seafoam: #E4E4E7;
-    --color-yellow: #D4D4D8;
-    --color-text-secondary: #666666;
-    --color-text-muted: #999999;
+    --color-pink: #F4F4F5;
+    --color-seafoam: #F4F4F5;
+    --color-yellow: #F4F4F5;
+    --color-text-secondary: #525252;
+    --color-text-muted: #737373;
   }
 
   .dark {

@@ -4,7 +4,7 @@ import React from 'react';
 
 const BrandStory = () => {
   return (
-    <section className="bg-[#F5F5F5] py-[120px] overflow-hidden">
+    <section className="bg-white py-[120px] overflow-hidden">
       <div className="container mx-auto px-6 max-w-[1200px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Left Content Column */}
@@ -14,7 +14,7 @@ const BrandStory = () => {
                 A softer take on style.
               </h2>
               <p className="text-[#666666] text-[16px] leading-[1.6] mb-12">
-                We&apos;re here for effortless fashion that fits your mood — light, calm, and just a little playful. Inspired by pastel palettes, natural textures, and the kind of pieces you&apos;ll reach for every day.
+                We&apos;re here for effortless fashion that fits your mood — light, calm, and just a little playful. Minimalist, monochrome, and the kind of pieces you&apos;ll reach for every day.
               </p>
             </div>
 
@@ -25,7 +25,7 @@ const BrandStory = () => {
                 className="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 origin-center"
                 style={{ zIndex: 10 }}
               >
-                <span className="bg-[#FEF9C3] text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
+                <span className="bg-white border border-gray-100 text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
                   Curated Collections
                 </span>
               </div>
@@ -35,7 +35,7 @@ const BrandStory = () => {
                 className="absolute left-[40px] top-[10px]"
                 style={{ zIndex: 11 }}
               >
-                <span className="bg-[#DCFCE7] text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
+                <span className="bg-white border border-gray-100 text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
                   Nationwide Shipping
                 </span>
               </div>
@@ -45,7 +45,7 @@ const BrandStory = () => {
                 className="absolute right-[20px] top-[30px]"
                 style={{ zIndex: 12 }}
               >
-                <span className="bg-[#D1FAFF] text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
+                <span className="bg-white border border-gray-100 text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
                   Quality Assured
                 </span>
               </div>
@@ -55,7 +55,7 @@ const BrandStory = () => {
                 className="absolute right-0 top-[100px]"
                 style={{ zIndex: 13 }}
               >
-                <span className="bg-[#FBCFE8] text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
+                <span className="bg-white border border-gray-100 text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
                   Est. 2024
                 </span>
               </div>
@@ -65,7 +65,7 @@ const BrandStory = () => {
                 className="absolute left-[110px] bottom-[30px]"
                 style={{ zIndex: 14 }}
               >
-                <span className="bg-[#D8B4FE] text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
+                <span className="bg-white border border-gray-100 text-black text-[12px] font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm">
                   Free Shipping
                 </span>
               </div>

@@ -23,35 +23,35 @@ const categories = [
     title: 'Outwear',
     subtitle: 'Light, flowy, easy',
     action: 'Shop Now',
-    bgColor: 'bg-[#DCFCE7]', // Seafoam
+    bgColor: 'bg-white border border-gray-100', // Monochrome
     textColor: 'text-black',
   },
   {
     title: 'Tops',
     subtitle: 'Cute meets comfy',
     action: 'Shop Now',
-    bgColor: 'bg-[#FBCFE8]', // Pink
+    bgColor: 'bg-white border border-gray-100', // Monochrome
     textColor: 'text-black',
   },
   {
     title: 'Bottoms',
     subtitle: 'Relaxed fits, always',
     action: 'Shop Now',
-    bgColor: 'bg-[#D1FAFF]', // Mint
+    bgColor: 'bg-white border border-gray-100', // Monochrome
     textColor: 'text-black',
   },
   {
     title: 'Couple',
     subtitle: 'Matching vibes',
     action: 'Shop Now',
-    bgColor: 'bg-[#FEF9C3]', // Yellow
+    bgColor: 'bg-white border border-gray-100', // Monochrome
     textColor: 'text-black',
   },
 ];
 
 export default function ShopCategories() {
   return (
-    <section className="w-full bg-[#F5F5F5] py-[120px] px-6 md:px-12 lg:px-24">
+    <section className="w-full bg-white py-[120px] px-6 md:px-12 lg:px-24">
       <div className="max-w-[1200px] mx-auto">
         {/* Header Content */}
         <div className="text-center mb-16 flex flex-col items-center">
