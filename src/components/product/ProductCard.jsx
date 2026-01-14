@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useWishlist, useAddToWishlist, useRemoveFromWishlist } from '../../hooks/queries/useWishlist';
 import toast from 'react-hot-toast';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const ProductCard = ({ product }) => {
     const { user } = useAuth();
@@ -32,11 +32,9 @@ const ProductCard = ({ product }) => {
         }
     };
 
-    const imageUrl = product.images?.[0]?.imagePath?.startsWith('http')
-        ? product.images[0].imagePath
-        : product.images?.[0]?.imagePath
-            ? `${API_BASE_URL}${product.images[0].imagePath}`
-            : "https://placehold.co/450x600/e2e8f0/1e293b?text=No+Image";
+    const imageUrl = product.images?.[0]?.imagePath
+        ? getImageUrl(product.images[0].imagePath)
+        : "https://placehold.co/450x600/e2e8f0/1e293b?text=No+Image";
 
     return (
         <Link to={`/product/${product.slug}`} className="group flex flex-col gap-3">

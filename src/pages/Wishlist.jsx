@@ -4,6 +4,7 @@ import { useWishlist, useRemoveFromWishlist } from '../hooks/queries/useWishlist
 import { Trash2, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { getImageUrl } from '../utils/imageUtils';
 
 const Wishlist = () => {
     const { user } = useAuth();
@@ -48,9 +49,7 @@ const Wishlist = () => {
                                     <img
                                         src={
                                             item.product.images?.[0]?.imagePath
-                                                ? item.product.images[0].imagePath.startsWith('http')
-                                                    ? item.product.images[0].imagePath
-                                                    : `${import.meta.env.VITE_API_URL}${item.product.images[0].imagePath}`
+                                                ? getImageUrl(item.product.images[0].imagePath)
                                                 : "https://placehold.co/450x600/e2e8f0/1e293b?text=No+Image"
                                         }
                                         alt={item.product.name}

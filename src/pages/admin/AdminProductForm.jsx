@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Save, ArrowLeft, Plus, X, Upload } from 'lucide-react';
 import api from '../../api/client';
 import toast from 'react-hot-toast';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const AdminProductForm = () => {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ const AdminProductForm = () => {
 
                 // Set existing images
                 if (product.images) {
-                    setPreviewImages(product.images.map(img => img.imagePath));
+                    setPreviewImages(product.images.map(img => getImageUrl(img.imagePath))); // Use getImageUrl helper
                 }
 
                 // Set collections

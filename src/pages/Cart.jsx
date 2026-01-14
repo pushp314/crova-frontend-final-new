@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { getImageUrl } from '../utils/imageUtils';
 
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity, loading } = useCart();
@@ -54,9 +55,7 @@ const Cart = () => {
                             <div className="w-24 h-32 bg-gray-100 flex-shrink-0">
                                 {item.product?.images?.[0] ? (
                                     <img
-                                        src={item.product.images[0].imagePath.startsWith('http')
-                                            ? item.product.images[0].imagePath
-                                            : `${import.meta.env.VITE_API_URL}${item.product.images[0].imagePath}`}
+                                        src={getImageUrl(item.product.images[0].imagePath)}
                                         alt={item.product.name}
                                         className="w-full h-full object-cover"
                                     />

@@ -3,6 +3,7 @@ import { Search, Plus, Edit, Trash2, Eye, AlertTriangle, X } from 'lucide-react'
 import api from '../../api/client';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
@@ -151,9 +152,7 @@ const AdminProducts = () => {
                                                     <div className="w-12 h-12 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden">
                                                         {product.images?.[0] && (
                                                             <img
-                                                                src={product.images[0].imagePath.startsWith('http')
-                                                                    ? product.images[0].imagePath
-                                                                    : `${import.meta.env.VITE_API_URL}${product.images[0].imagePath}`}
+                                                                src={getImageUrl(product.images[0].imagePath)}
                                                                 alt={product.name}
                                                                 className="w-full h-full object-cover"
                                                             />
@@ -270,9 +269,7 @@ const AdminProducts = () => {
                                     <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden border border-gray-100">
                                         {selectedProduct.images?.[0] ? (
                                             <img
-                                                src={selectedProduct.images[0].imagePath.startsWith('http')
-                                                    ? selectedProduct.images[0].imagePath
-                                                    : `${import.meta.env.VITE_API_URL}${selectedProduct.images[0].imagePath}`}
+                                                src={getImageUrl(selectedProduct.images[0].imagePath)}
                                                 alt={selectedProduct.name}
                                                 className="w-full h-full object-cover"
                                             />
@@ -286,9 +283,7 @@ const AdminProducts = () => {
                                         {selectedProduct.images?.slice(1).map((img, idx) => (
                                             <div key={idx} className="aspect-square bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
                                                 <img
-                                                    src={img.imagePath.startsWith('http')
-                                                        ? img.imagePath
-                                                        : `${import.meta.env.VITE_API_URL}${img.imagePath}`}
+                                                    src={getImageUrl(img.imagePath)}
                                                     alt=""
                                                     className="w-full h-full object-cover"
                                                 />
