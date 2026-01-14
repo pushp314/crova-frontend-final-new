@@ -20,7 +20,7 @@ const ProductImageGallery = ({ product, mainImage }) => {
             <motion.img
                 src={mainImage}
                 alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 reveal-color"
                 whileHover={{ scale: 1.05 }}
             />
             {/* Badges */}
