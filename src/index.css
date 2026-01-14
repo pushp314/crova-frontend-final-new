@@ -5,6 +5,27 @@
 @tailwind utilities;
 
 @layer base {
+
+  /* Global Film Grain & Filter Effect */
+  html {
+    filter: grayscale(100%) contrast(110%) brightness(95%) sepia(10%);
+  }
+
+  /* Overlay for grain effect */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+  }
+
   :root {
     --background: #FFFFFF;
     --foreground: #000000;
@@ -25,15 +46,6 @@
     --border: #E5E5E5;
     --input: #E5E5E5;
     --ring: #000000;
-    --radius: 0px; 
-    --sidebar-background: #FFFFFF;
-    --sidebar-foreground: #737373;
-    --sidebar-primary: #000000;
-    --sidebar-primary-foreground: #FFFFFF;
-    --sidebar-accent: #F4F4F5;
-    --sidebar-accent-foreground: #000000;
-    --sidebar-border: #E5E5E5;
-    --sidebar-ring: #000000;
 
     /* Custom Brand Colors - Mapped to Grayscale */
     --color-lavender: #F4F4F5;
@@ -46,7 +58,7 @@
   }
 
   .dark {
-    /* Add dark mode variables here if needed, mimicking the @custom-variant dark */
+    /* Add dark mode variables here if needed */
   }
 }
 
