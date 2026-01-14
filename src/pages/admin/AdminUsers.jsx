@@ -131,8 +131,8 @@ const AdminUsers = () => {
                                                 value={user.role}
                                                 onChange={(e) => handleRoleUpdate(user.id, e.target.value)}
                                                 className={`text-xs font-medium px-2.5 py-1 rounded-full border-0 cursor-pointer focus:ring-1 focus:ring-black ${user.role === 'ADMIN'
-                                                        ? 'bg-purple-100 text-purple-700'
-                                                        : 'bg-green-100 text-green-700'
+                                                    ? 'bg-black text-white'
+                                                    : 'bg-gray-100 text-gray-700'
                                                     }`}
                                             >
                                                 <option value="USER">USER</option>
@@ -140,9 +140,9 @@ const AdminUsers = () => {
                                             </select>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.isEmailVerified
-                                                    ? 'bg-green-100 text-green-800'
-                                                    : 'bg-yellow-100 text-yellow-800'
+                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${user.isEmailVerified
+                                                ? 'bg-white text-black border-black'
+                                                : 'bg-white text-gray-500 border-gray-200'
                                                 }`}>
                                                 {user.isEmailVerified ? 'Verified' : 'Pending'}
                                             </span>

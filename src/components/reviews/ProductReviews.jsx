@@ -39,7 +39,7 @@ const ProductReviews = ({ productId }) => {
                     <div>
                         <h2 className="text-2xl font-serif mb-2">Customer Reviews</h2>
                         <div className="flex items-center gap-2">
-                            <div className="flex text-yellow-500">
+                            <div className="flex text-black">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <Star
                                         key={star}
@@ -84,7 +84,7 @@ const ProductReviews = ({ productId }) => {
                                         key={star}
                                         type="button"
                                         onClick={() => setRating(star)}
-                                        className={`transition-colors ${star <= rating ? 'text-yellow-500' : 'text-gray-300'}`}
+                                        className={`transition-colors ${star <= rating ? 'text-black' : 'text-gray-300'}`}
                                     >
                                         <Star size={24} fill="currentColor" />
                                     </button>
@@ -135,7 +135,7 @@ const ProductReviews = ({ productId }) => {
                                         </div>
                                         <div>
                                             <h4 className="font-medium text-sm">{review.user.name}</h4>
-                                            <div className="flex text-yellow-500 text-xs mt-0.5">
+                                            <div className="flex text-black text-xs mt-0.5">
                                                 {[1, 2, 3, 4, 5].map((star) => (
                                                     <Star
                                                         key={star}

@@ -129,7 +129,7 @@ const ProductSelector = ({
                         ${isOutOfStock
                             ? "bg-gray-400 cursor-not-allowed"
                             : isAdded
-                                ? "bg-green-600 hover:bg-green-700"
+                                ? "bg-black hover:bg-black/90"
                                 : "bg-[#1a1a1a] hover:bg-black hover:shadow-xl"
                         }`}
                 >
@@ -148,10 +148,10 @@ const ProductSelector = ({
                 <button
                     onClick={handleWishlistClick}
                     className={`h-[60px] w-[60px] flex items-center justify-center rounded-full border border-gray-200 transition-all duration-300 hover:border-black
-                        ${isInWishlist ? 'bg-red-50 border-red-200' : 'bg-white hover:bg-gray-50'}`}
+                        ${isInWishlist ? 'bg-black text-white border-black' : 'bg-white hover:bg-gray-50'}`}
                 >
                     <Heart
-                        className={`w-6 h-6 transition-colors duration-300 ${isInWishlist ? 'fill-red-500 stroke-red-500' : 'stroke-black'}`}
+                        className={`w-6 h-6 transition-colors duration-300 ${isInWishlist ? 'fill-white stroke-white' : 'stroke-black'}`}
                     />
                 </button>
             </motion.div>

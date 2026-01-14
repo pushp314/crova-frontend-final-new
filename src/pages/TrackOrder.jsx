@@ -29,11 +29,11 @@ const TrackOrder = () => {
 
     const getStatusColor = (status) => {
         const colors = {
-            PENDING: 'text-yellow-600 bg-yellow-50',
-            CONFIRMED: 'text-blue-600 bg-blue-50',
-            SHIPPED: 'text-purple-600 bg-purple-50',
-            DELIVERED: 'text-green-600 bg-green-50',
-            CANCELLED: 'text-red-600 bg-red-50'
+            PENDING: 'text-gray-700 bg-gray-100 border border-gray-200',
+            CONFIRMED: 'text-black bg-white border border-black',
+            SHIPPED: 'text-black bg-gray-200 border border-gray-200',
+            DELIVERED: 'text-white bg-black border border-black',
+            CANCELLED: 'text-gray-400 bg-gray-50 border border-gray-200'
         };
         return colors[status] || 'text-gray-600 bg-gray-50';
     };

@@ -260,14 +260,14 @@ const UserProfile = () => {
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <span className={`px-3 py-1 rounded-full text-xs font-medium border ${order.paymentStatus === 'SUCCESS'
-                                                            ? 'bg-green-50 text-green-700 border-green-100'
-                                                            : 'bg-yellow-50 text-yellow-700 border-yellow-100'
+                                                            ? 'bg-black text-white border-black'
+                                                            : 'bg-gray-100 text-gray-700 border-gray-200'
                                                             }`}>
                                                             {order.paymentStatus === 'SUCCESS' ? 'Paid' : 'Payment Pending'}
                                                         </span>
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium border ${order.status === 'DELIVERED' ? 'bg-blue-50 text-blue-700 border-blue-100' :
-                                                            order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-100' :
-                                                                'bg-gray-50 text-gray-700 border-gray-200'
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium border ${order.status === 'DELIVERED' ? 'bg-white text-black border-black' :
+                                                            order.status === 'CANCELLED' ? 'bg-gray-100 text-gray-500 border-gray-200 line-through' :
+                                                                'bg-white text-gray-700 border-gray-200'
                                                             }`}>
                                                             {order.status}
                                                         </span>
@@ -468,10 +468,10 @@ const UserProfile = () => {
                                                             Submitted on {new Date(inq.createdAt).toLocaleDateString()}
                                                         </p>
                                                     </div>
-                                                    <span className={`px-3 py-1 rounded-full text-xs font-medium border ${inq.status === 'CONTACTED' ? 'bg-blue-50 text-blue-700 border-blue-100' :
-                                                        inq.status === 'COMPLETED' ? 'bg-green-50 text-green-700 border-green-100' :
-                                                            inq.status === 'REJECTED' ? 'bg-red-50 text-red-700 border-red-100' :
-                                                                'bg-yellow-50 text-yellow-700 border-yellow-100'
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-medium border ${inq.status === 'CONTACTED' ? 'bg-gray-50 text-black border-black' :
+                                                        inq.status === 'COMPLETED' ? 'bg-black text-white border-black' :
+                                                            inq.status === 'REJECTED' ? 'bg-gray-100 text-gray-400 border-gray-200' :
+                                                                'bg-white text-gray-600 border-gray-200'
                                                         }`}>
                                                         {inq.status}
                                                     </span>
@@ -496,12 +496,12 @@ const UserProfile = () => {
                                                 )}
 
                                                 {inq.adminReply && (
-                                                    <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                                                        <h4 className="text-xs font-bold uppercase tracking-wider text-blue-800 mb-2 flex items-center gap-2">
+                                                    <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                                        <h4 className="text-xs font-bold uppercase tracking-wider text-black mb-2 flex items-center gap-2">
                                                             <CheckCircle className="w-3 h-3" /> Response from Admin
                                                         </h4>
-                                                        <p className="text-sm text-blue-900 whitespace-pre-wrap">{inq.adminReply}</p>
-                                                        <p className="text-xs text-blue-400 mt-2">
+                                                        <p className="text-sm text-gray-800 whitespace-pre-wrap">{inq.adminReply}</p>
+                                                        <p className="text-xs text-gray-400 mt-2">
                                                             Received {new Date(inq.adminReplyAt).toLocaleString()}
                                                         </p>
                                                     </div>

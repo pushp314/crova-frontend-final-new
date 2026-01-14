@@ -46,13 +46,13 @@ const AdminOrders = () => {
 
     const getStatusColor = (status) => {
         const colors = {
-            PENDING: 'bg-yellow-100 text-yellow-700',
-            CONFIRMED: 'bg-blue-100 text-blue-700',
-            PAID: 'bg-green-100 text-green-700',
-            PROCESSING: 'bg-purple-100 text-purple-700',
-            SHIPPED: 'bg-indigo-100 text-indigo-700',
-            DELIVERED: 'bg-green-100 text-green-700',
-            CANCELLED: 'bg-red-100 text-red-700',
+            PENDING: 'bg-white border border-gray-200 text-gray-700',
+            CONFIRMED: 'bg-gray-50 border border-gray-300 text-black',
+            PAID: 'bg-gray-100 border border-gray-400 text-black font-medium',
+            PROCESSING: 'bg-black text-white',
+            SHIPPED: 'bg-gray-800 text-white',
+            DELIVERED: 'bg-black text-white border border-black',
+            CANCELLED: 'bg-gray-50 text-gray-400 line-through',
         };
         return colors[status] || 'bg-gray-100 text-gray-700';
     };
@@ -164,8 +164,8 @@ const AdminOrders = () => {
                                             <div className="flex flex-col gap-1">
                                                 <span className="text-sm text-gray-700">{order.paymentMethod}</span>
                                                 <span className={`inline-block text-xs px-2 py-0.5 rounded-full w-fit ${order.paymentStatus === 'SUCCESS' ? 'bg-green-100 text-green-700' :
-                                                        order.paymentStatus === 'PENDING' ? 'bg-yellow-100 text-yellow-700' :
-                                                            'bg-red-100 text-red-700'
+                                                    order.paymentStatus === 'PENDING' ? 'bg-yellow-100 text-yellow-700' :
+                                                        'bg-red-100 text-red-700'
                                                     }`}>
                                                     {order.paymentStatus}
                                                 </span>

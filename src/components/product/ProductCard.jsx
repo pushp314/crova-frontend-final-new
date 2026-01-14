@@ -69,7 +69,7 @@ const ProductCard = ({ product }) => {
                 </h3>
                 {product.rating > 0 && (
                     <div className="flex items-center gap-1">
-                        <span className="text-yellow-500 text-xs">★</span>
+                        <span className="text-black text-xs">★</span>
                         <span className="text-xs font-medium text-gray-600">{product.rating.toFixed(1)}</span>
                         <span className="text-[10px] text-gray-400">({product.numReviews})</span>
                     </div>

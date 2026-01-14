@@ -10,7 +10,7 @@ const ProductInfo = ({ product, itemVariants }) => {
                 <span className="text-gray-500 text-sm font-medium tracking-wide">
                     {product.category?.name || "Collection"} • SKU: {product.id.toString().padStart(4, '0')}
                 </span>
-                <div className="flex items-center gap-1 text-yellow-500 text-sm">
+                <div className="flex items-center gap-1 text-black text-sm">
                     {'★'.repeat(Math.round(product.rating || 0))}
                     {'☆'.repeat(5 - Math.round(product.rating || 0))}
                     <span className="text-gray-400 ml-1 font-normal">

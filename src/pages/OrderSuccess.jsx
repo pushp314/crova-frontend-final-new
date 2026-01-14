@@ -41,8 +41,8 @@ const OrderSuccess = () => {
     return (
         <div className="min-h-screen pt-32 pb-20 px-4 flex flex-col items-center justify-center bg-gray-50">
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl max-w-lg w-full text-center">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-green-600" />
+                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-10 h-10 text-black" />
                 </div>
 
                 <h1 className="text-3xl font-display font-bold mb-2">Order Confirmed!</h1>
@@ -61,8 +61,8 @@ const OrderSuccess = () => {
                     </div>
                     <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200">
                         <span className="text-gray-600">Payment Status</span>
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${order.paymentStatus === 'SUCCESS' ? 'bg-green-100 text-green-700' :
-                                order.paymentStatus === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-700'
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${order.paymentStatus === 'SUCCESS' ? 'bg-black text-white' :
+                            order.paymentStatus === 'PENDING' ? 'bg-gray-100 text-gray-700' : 'bg-gray-100 text-gray-700'
                             }`}>
                             {order.paymentStatus || 'PENDING'}
                         </span>

@@ -93,7 +93,7 @@ const Summer2025Collection: React.FC = () => {
                 />
 
                 {/* New Badge */}
-                <div className="absolute top-3 right-3 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <div className="absolute top-3 right-3 bg-black text-white text-xs font-semibold px-3 py-1 rounded-full">
                   New
                 </div>
               </div>

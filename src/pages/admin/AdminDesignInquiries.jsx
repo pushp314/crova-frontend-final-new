@@ -63,13 +63,13 @@ const AdminDesignInquiries = () => {
 
     const StatusBadge = ({ status }) => {
         const styles = {
-            PENDING: 'bg-yellow-100 text-yellow-800',
-            CONTACTED: 'bg-blue-100 text-blue-800',
-            COMPLETED: 'bg-green-100 text-green-800',
-            REJECTED: 'bg-red-100 text-red-800'
+            PENDING: 'bg-white border border-gray-200 text-gray-500',
+            CONTACTED: 'bg-gray-100 text-black border border-gray-200',
+            COMPLETED: 'bg-black text-white border border-black',
+            REJECTED: 'bg-gray-50 text-gray-400 line-through border border-gray-200'
         };
         return (
-            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${styles[status] || 'bg-gray-100'}`}>
+            <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${styles[status] || 'bg-gray-100 border-gray-200'}`}>
                 {status}
             </span>
         );
@@ -203,9 +203,9 @@ const AdminDesignInquiries = () => {
                                 </h3>
 
                                 {selectedInquiry.adminReply ? (
-                                    <div className="p-6 bg-blue-50 rounded-xl text-blue-900 border border-blue-100">
+                                    <div className="p-6 bg-gray-50 rounded-xl text-gray-900 border border-gray-200">
                                         <p className="whitespace-pre-wrap">{selectedInquiry.adminReply}</p>
-                                        <div className="mt-3 text-xs text-blue-500 flex items-center gap-1">
+                                        <div className="mt-3 text-xs text-gray-500 flex items-center gap-1">
                                             <CheckCircle className="w-3 h-3" />
                                             Replied on {new Date(selectedInquiry.adminReplyAt).toLocaleString()}
                                         </div>

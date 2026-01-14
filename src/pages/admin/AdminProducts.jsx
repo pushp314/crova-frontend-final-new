@@ -177,15 +177,15 @@ const AdminProducts = () => {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-2">
-                                                    <span className={`font-medium ${lowStock ? 'text-red-600' : 'text-gray-900'}`}>
+                                                    <span className={`font-medium ${lowStock ? 'text-black font-bold' : 'text-gray-900'}`}>
                                                         {totalStock}
                                                     </span>
-                                                    {lowStock && <AlertTriangle className="w-4 h-4 text-red-600" />}
+                                                    {lowStock && <AlertTriangle className="w-4 h-4 text-black" />}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <span className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${product.isActive
-                                                    ? 'bg-green-100 text-green-700'
+                                                    ? 'bg-black text-white'
                                                     : 'bg-gray-100 text-gray-700'
                                                     }`}>
                                                     {product.isActive ? 'Active' : 'Inactive'}
@@ -209,10 +209,10 @@ const AdminProducts = () => {
                                                     </Link>
                                                     <button
                                                         onClick={() => handleDelete(product.id)}
-                                                        className="p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                                                         title="Delete"
                                                     >
-                                                        <Trash2 className="w-4 h-4 text-red-600" />
+                                                        <Trash2 className="w-4 h-4 text-black" />
                                                     </button>
                                                 </div>
                                             </td>
@@ -239,7 +239,7 @@ const AdminProducts = () => {
                 </div>
                 <div className="bg-white rounded-lg border border-gray-200 p-4">
                     <p className="text-sm text-gray-500">Low Stock Items</p>
-                    <p className="text-2xl font-bold text-red-600 mt-1">
+                    <p className="text-2xl font-bold text-black mt-1">
                         {products.filter(p => {
                             const stock = p.variants?.reduce((sum, v) => sum + (v.stock || 0), 0) || 0;
                             return stock < 10;
@@ -298,7 +298,7 @@ const AdminProducts = () => {
                                         <div className="flex items-start justify-between gap-4">
                                             <h2 className="text-2xl font-bold text-gray-900">{selectedProduct.name}</h2>
                                             <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${selectedProduct.isActive
-                                                ? 'bg-green-100 text-green-700'
+                                                ? 'bg-black text-white'
                                                 : 'bg-gray-100 text-gray-700'
                                                 }`}>
                                                 {selectedProduct.isActive ? 'Active' : 'Inactive'}
