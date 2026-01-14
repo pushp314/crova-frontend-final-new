@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
                 <img
                     src={imageUrl}
                     alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 reveal-color"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-hover:grayscale-0"
                 />
 
                 {product.comparePrice && (
