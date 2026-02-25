@@ -17,6 +17,7 @@ import ShopCategories from "@/components/sections/shop-categories";
 import FeaturesGrid from "@/components/sections/features-grid";
 import Footer from "@/components/sections/footer";
 import AuthModal from "@/components/sections/auth-modal";
+import SocialSection from "@/components/sections/social-section";
 import MobileBottomNav from "./components/MobileBottomNav";
 
 // Lazy Load Pages
@@ -146,6 +147,7 @@ function HomePage() {
         <Summer2025Collection />
         <ShopCategories />
         <FeaturesGrid />
+        <SocialSection />
       </div>
     </>
   );

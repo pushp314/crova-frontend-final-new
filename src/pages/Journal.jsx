@@ -95,7 +95,7 @@ const Journal = () => {
                     {/* Model Image */}
                     <div className="absolute right-0 bottom-0 top-0 md:relative md:h-full flex items-end justify-end opacity-40 md:opacity-100 pointer-events-none">
                         <img
-                            src="https://picsum.photos/seed/journal_hero/1200/800"
+                            src="/assets/products/featured-2.jpg"
                             alt="Journal Aesthetic"
                             className="h-full object-contain object-bottom mix-blend-multiply"
                         />

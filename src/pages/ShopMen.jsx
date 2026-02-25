@@ -121,7 +121,7 @@ const ShopMen = () => {
 
                     <div className="absolute right-0 bottom-0 top-0 md:relative md:h-full flex items-end justify-end opacity-40 md:opacity-100 pointer-events-none">
                         <img
-                            src="/images/men-fashion.png"
+                            src="/assets/collections/mens-collection.jpg"
                             alt="Men's Fashion"
                             className="h-full object-contain object-bottom mix-blend-multiply"
                         />

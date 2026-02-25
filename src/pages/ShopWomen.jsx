@@ -101,7 +101,7 @@ const ShopWomen = () => {
 
                     <div className="absolute right-0 bottom-0 top-0 md:relative md:h-full flex items-end justify-end opacity-40 md:opacity-100 pointer-events-none">
                         <img
-                            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800"
+                            src="/assets/collections/womens-collection.jpg"
                             alt="Women's Fashion"
                             className="h-full object-contain object-bottom mix-blend-multiply"
                         />

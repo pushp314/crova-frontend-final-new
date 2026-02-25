@@ -66,7 +66,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <div className="w-full h-full relative">
           <video
-            src="https://framerusercontent.com/assets/NjTmL2YIzs2LWaHT2O5VsxgAQ.mp4"
+            src="/assets/hero/hero-video.mp4"
             autoPlay
             loop
             muted

@@ -172,7 +172,7 @@ const AdminProductForm = () => {
             });
 
             images.forEach(image => {
-                data.append('images', image);
+                data.append('productImages', image);
             });
 
             if (isEditMode) {

@@ -26,7 +26,7 @@ const PopupModal = () => {
         {/* Left Section: Image */}
         <div className="relative w-full md:w-[45%] h-[240px] md:h-auto">
           <img
-            src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=800"
+            src="/assets/collections/womens-collection.jpg"
             alt="Aesthetic woman wearing fashion essentials"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />

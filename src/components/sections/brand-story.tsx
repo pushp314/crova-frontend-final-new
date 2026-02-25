@@ -76,7 +76,7 @@ const BrandStory = () => {
           <div className="relative">
             <div className="aspect-[3/4] relative w-full overflow-hidden rounded-[24px]">
               <img
-                src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800"
+                src="/images/men-fashion.png"
                 alt="Effortless fashion style portrait"
                 className="absolute inset-0 w-full h-full object-cover"
               />

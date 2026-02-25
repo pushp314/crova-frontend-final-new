@@ -80,7 +80,7 @@ const AdminCategoryForm = () => {
             data.append('isActive', formData.isActive);
 
             if (image) {
-                data.append('image', image);
+                data.append('categoryImage', image);
             }
 
             if (isEditMode) {

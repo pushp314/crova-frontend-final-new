@@ -36,7 +36,7 @@ const ContactUs = () => {
                     {/* Hero Image - Right Side */}
                     <div className="absolute right-0 top-0 bottom-0 md:relative md:h-full flex items-end justify-end opacity-60 md:opacity-100 pointer-events-none">
                         <img
-                            src="https://picsum.photos/seed/crova_contact/800/600"
+                            src="/assets/products/featured-3.jpg"
                             alt="Contact Support"
                             className="h-full object-contain object-bottom mix-blend-multiply"
                         />

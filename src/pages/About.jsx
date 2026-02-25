@@ -30,7 +30,7 @@ const About = () => {
                     </div>
                     <div className="relative aspect-[4/5] bg-[#F5F5F5] rounded-2xl overflow-hidden">
                         <img
-                            src="https://picsum.photos/seed/crova_about/800/1000"
+                            src="/assets/products/featured-1.jpg"
                             alt="Crova Beginning"
                             className="object-cover w-full h-full"
                         />

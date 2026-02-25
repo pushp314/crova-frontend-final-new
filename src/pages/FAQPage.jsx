@@ -130,7 +130,7 @@ const FAQPage = () => {
 
                     {/* Hero Image (Right Side) */}
                     <img
-                        src="https://picsum.photos/seed/crova_faq/600/800"
+                        src="/assets/products/featured-4.jpg"
                         alt="FAQ Hero"
                         className="h-full object-contain object-bottom mix-blend-multiply"
                     />
