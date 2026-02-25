@@ -4,6 +4,8 @@ import { Save, ArrowLeft, Plus, X, Upload } from 'lucide-react';
 import api from '../../api/client';
 import toast from 'react-hot-toast';
 import { getImageUrl } from '../../utils/imageUtils';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 const AdminProductForm = () => {
     const navigate = useNavigate();
@@ -232,14 +234,16 @@ const AdminProductForm = () => {
                         </div>
 
                         <div className="col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                            <textarea
-                                rows="4"
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                            />
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <div className="prose-sm">
+                                <ReactQuill
+                                    theme="snow"
+                                    value={formData.description}
+                                    onChange={(content) => setFormData(prev => ({ ...prev, description: content }))}
+                                    className="h-64 mb-12 bg-white"
+                                    placeholder="Write product description, sizing info, etc..."
+                                />
+                            </div>
                         </div>
 
                         <div>

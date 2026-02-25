@@ -10,28 +10,71 @@ const AdminProducts = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('all');
+    const [selectedIds, setSelectedIds] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
-        console.log('AdminProducts updated. Selected:', selectedProduct);
-        fetchProducts();
-    }, [filter]);
+        const delayDebounceFn = setTimeout(() => {
+            fetchProducts();
+        }, 500); // Debounce search
+
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchTerm, filter]);
 
     const fetchProducts = async () => {
         setLoading(true);
         try {
-            const params = {};
+            const params = {
+                includeInactive: true,
+                search: searchTerm
+            };
             if (filter === 'featured') params.featured = true;
             if (filter === 'inactive') params.isActive = false;
 
-            // Always include inactive products for admin management
-            params.includeInactive = true;
-
             const { data } = await api.get('/products', { params });
-            // Handle nested response structure { data: { products: [] } } vs { products: [] }
             setProducts(data.data?.products || data.products || []);
         } catch (error) {
             console.error('Error fetching products:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSelectAll = (e) => {
+        if (e.target.checked) {
+            setSelectedIds(products.map(p => p.id));
+        } else {
+            setSelectedIds([]);
+        }
+    };
+
+    const toggleSelection = (id) => {
+        setSelectedIds(prev =>
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        );
+    };
+
+    const handleBulkAction = async (action) => {
+        if (selectedIds.length === 0) return;
+
+        const confirmMsg = action === 'delete'
+            ? `Are you sure you want to delete ${selectedIds.length} products?`
+            : `Are you sure you want to update ${selectedIds.length} products?`;
+
+        if (!confirm(confirmMsg)) return;
+
+        try {
+            setLoading(true);
+            await api.post('/products/bulk-action', {
+                ids: selectedIds,
+                action: action
+            });
+            toast.success('Bulk action completed');
+            setSelectedIds([]);
+            fetchProducts();
+        } catch (error) {
+            console.error('Bulk action error:', error);
+            toast.error('Failed to perform bulk action');
         } finally {
             setLoading(false);
         }
@@ -71,6 +114,24 @@ const AdminProducts = () => {
                 </Link>
             </div>
 
+            {/* Bulk Actions Bar */}
+            {selectedIds.length > 0 && (
+                <div className="bg-black text-white px-6 py-4 rounded-xl flex items-center justify-between animate-in slide-in-from-top-4 duration-300">
+                    <div className="flex items-center gap-4">
+                        <span className="font-medium">{selectedIds.length} products selected</span>
+                        <div className="h-4 w-px bg-white/20"></div>
+                        <div className="flex gap-4">
+                            <button onClick={() => handleBulkAction('activate')} className="text-sm hover:text-gray-300 transition-colors">Mark Active</button>
+                            <button onClick={() => handleBulkAction('deactivate')} className="text-sm hover:text-gray-300 transition-colors">Mark Inactive</button>
+                            <button onClick={() => handleBulkAction('delete')} className="text-sm text-red-400 hover:text-red-300 transition-colors font-medium">Delete Permanently</button>
+                        </div>
+                    </div>
+                    <button onClick={() => setSelectedIds([])} className="p-1 hover:bg-white/10 rounded-full transition-colors">
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
+            )}
+
             {/* Filters & Search */}
             <div className="bg-white rounded-xl border border-gray-200 p-4">
                 <div className="flex flex-col md:flex-row gap-4">
@@ -79,7 +140,7 @@ const AdminProducts = () => {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <input
                             type="text"
-                            placeholder="Search products..."
+                            placeholder="Search by name or slug..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
@@ -106,12 +167,12 @@ const AdminProducts = () => {
 
             {/* Products Table */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                {loading ? (
+                {loading && products.length === 0 ? (
                     <div className="p-8 text-center">
                         <div className="animate-spin w-8 h-8 border-4 border-black border-t-transparent rounded-full mx-auto"></div>
                         <p className="text-gray-500 mt-4">Loading products...</p>
                     </div>
-                ) : filteredProducts.length === 0 ? (
+                ) : products.length === 0 ? (
                     <div className="p-8 text-center">
                         <p className="text-gray-500">No products found</p>
                     </div>
@@ -120,6 +181,14 @@ const AdminProducts = () => {
                         <table className="w-full">
                             <thead className="bg-gray-50 border-b border-gray-200">
                                 <tr>
+                                    <th className="px-6 py-3 text-left">
+                                        <input
+                                            type="checkbox"
+                                            onChange={handleSelectAll}
+                                            checked={selectedIds.length === products.length && products.length > 0}
+                                            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                                        />
+                                    </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Product
                                     </th>
@@ -141,12 +210,20 @@ const AdminProducts = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
-                                {filteredProducts.map((product) => {
+                                {products.map((product) => {
                                     const totalStock = product.variants?.reduce((sum, v) => sum + (v.stock || 0), 0) || 0;
                                     const lowStock = totalStock < 10;
 
                                     return (
-                                        <tr key={product.id} className="hover:bg-gray-50 transition-colors">
+                                        <tr key={product.id} className={`hover:bg-gray-50 transition-colors ${selectedIds.includes(product.id) ? 'bg-black/5' : ''}`}>
+                                            <td className="px-6 py-4">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedIds.includes(product.id)}
+                                                    onChange={() => toggleSelection(product.id)}
+                                                    className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                                                />
+                                            </td>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-12 h-12 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden">

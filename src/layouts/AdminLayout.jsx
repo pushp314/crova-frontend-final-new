@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, Menu, X, Layers, PenTool, Tags } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, Menu, X, Layers, PenTool, Tags, History } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const AdminLayout = () => {
@@ -28,6 +28,7 @@ const AdminLayout = () => {
         { icon: PenTool, label: 'Design Inquiries', path: '/admin/designs' },
         { icon: ShoppingCart, label: 'Orders', path: '/admin/orders' },
         { icon: Users, label: 'Users', path: '/admin/users' },
+        { icon: History, label: 'Audit Logs', path: '/admin/audit-logs' },
         { icon: Settings, label: 'Settings', path: '/admin/settings' },
     ];
 

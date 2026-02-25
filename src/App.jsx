@@ -50,6 +50,7 @@ const AdminCategoryForm = lazy(() => import('./pages/admin/AdminCategoryForm'));
 const AdminCollections = lazy(() => import('./pages/admin/AdminCollections'));
 const AdminCollectionForm = lazy(() => import("./pages/admin/AdminCollectionForm"));
 const AdminDesignInquiries = lazy(() => import("./pages/admin/AdminDesignInquiries"));
+const AdminAuditLogs = lazy(() => import("./pages/admin/AdminAuditLogs"));
 const CustomDesign = lazy(() => import("./pages/CustomDesign"));
 const CollectionDetail = lazy(() => import("./pages/CollectionDetail"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
@@ -222,6 +223,7 @@ function App() {
         <Route path="users" element={<AdminUsers />} />
         <Route path="settings" element={<AdminSettings />} />
         <Route path="designs" element={<AdminDesignInquiries />} />
+        <Route path="audit-logs" element={<AdminAuditLogs />} />
       </Route>
     </Routes>
   );
