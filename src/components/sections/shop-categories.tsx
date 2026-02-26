@@ -1,51 +1,34 @@
-"use client";
-
 import React from 'react';
-
-/**
- * ShopCategories Section
- * 
- * Features a category selection grid with four distinct pastel-colored cards:
- * - Outwear (Seafoam Green)
- * - Tops (Pink)
- * - Bottoms (Mint Blue)
- * - Accessories (Yellow)
- * 
- * Design follows the Crova brand art direction:
- * - Minimalist, airy, and contemporary aesthetic.
- * - Soft pastel color palette.
- * - Large 16px (M) border radius for cards.
- * - Centered typography with clear hierarchy.
- */
+import { Shirt, ShoppingBag, Layers, Heart } from 'lucide-react';
 
 const categories = [
   {
     title: 'Outwear',
     subtitle: 'Light, flowy, easy',
     action: 'Shop Now',
-    bgColor: 'bg-white border border-gray-100', // Monochrome
-    textColor: 'text-black',
+    bgColor: 'bg-stone-50',
+    icon: <Shirt className="w-10 h-10" strokeWidth={1.5} />,
   },
   {
     title: 'Tops',
     subtitle: 'Cute meets comfy',
     action: 'Shop Now',
-    bgColor: 'bg-white border border-gray-100', // Monochrome
-    textColor: 'text-black',
+    bgColor: 'bg-stone-50',
+    icon: <ShoppingBag className="w-10 h-10" strokeWidth={1.5} />,
   },
   {
     title: 'Bottoms',
     subtitle: 'Relaxed fits, always',
     action: 'Shop Now',
-    bgColor: 'bg-white border border-gray-100', // Monochrome
-    textColor: 'text-black',
+    bgColor: 'bg-stone-50',
+    icon: <Layers className="w-10 h-10" strokeWidth={1.5} />,
   },
   {
     title: 'Couple',
     subtitle: 'Matching vibes',
     action: 'Shop Now',
-    bgColor: 'bg-white border border-gray-100', // Monochrome
-    textColor: 'text-black',
+    bgColor: 'bg-stone-50',
+    icon: <Heart className="w-10 h-10" strokeWidth={1.5} />,
   },
 ];
 
@@ -69,18 +52,20 @@ export default function ShopCategories() {
             <a
               key={index}
               href={`/category/${category.title.toLowerCase()}`}
-              className={`group flex flex-col items-center justify-center text-center p-10 md:p-12 ${category.bgColor} rounded-[16px] transition-all duration-300 ease-in-out hover:opacity-90 hover:scale-[1.02] cursor-pointer min-h-[180px] md:min-h-[220px]`}
+              className={`group flex flex-col items-center justify-center text-center p-10 md:p-12 ${category.bgColor} rounded-[24px] border border-gray-100 transition-all duration-300 ease-in-out hover:bg-white hover:shadow-xl hover:shadow-black/5 hover:scale-[1.02] cursor-pointer min-h-[220px] md:min-h-[260px]`}
             >
-              <h3 className="text-[20px] md:text-[24px] font-semibold text-black mb-1">
+              <div className="mb-6 text-black group-hover:scale-110 transition-transform duration-300">
+                {category.icon}
+              </div>
+              <h3 className="text-[20px] md:text-[22px] font-semibold text-black mb-1">
                 {category.title}
               </h3>
-              <p className="text-black/70 text-[14px] md:text-[15px] font-normal mb-6">
+              <p className="text-gray-500 text-[14px] font-normal mb-6">
                 {category.subtitle}
               </p>
 
-              {/* Animated Action Text with Wavy Motif Underline concept */}
               <div className="relative overflow-hidden">
-                <span className="text-[14px] font-semibold text-black inline-block relative after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-black after:transform after:scale-x-0 group-hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
+                <span className="text-[14px] font-semibold text-black inline-block relative after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1.5px] after:bg-black after:transform after:scale-x-0 group-hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
                   {category.action}
                 </span>
               </div>

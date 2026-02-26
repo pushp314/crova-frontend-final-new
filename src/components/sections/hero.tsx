@@ -12,7 +12,7 @@ const HeroSection: React.FC = () => {
       <div className="max-w-[800px] space-y-6 md:space-y-8">
         <div className="space-y-4">
           <h1
-            className="text-[#000000] font-semibold leading-[1.1] tracking-[-0.02em] text-[40px] md:text-[64px]"
+            className="text-white font-semibold leading-[1.1] tracking-[-0.02em] text-[40px] md:text-[64px] drop-shadow-lg"
             style={{
               fontFamily: 'Inter, sans-serif',
             }}
@@ -23,7 +23,7 @@ const HeroSection: React.FC = () => {
           </h1>
 
           <p
-            className="text-[#000000] text-base md:text-[18px] leading-[1.6] max-w-[600px] mx-auto opacity-80"
+            className="text-white text-base md:text-[18px] leading-[1.6] max-w-[600px] mx-auto opacity-90 drop-shadow-md"
             style={{
               fontFamily: 'Inter, sans-serif',
             }}
@@ -36,7 +36,7 @@ const HeroSection: React.FC = () => {
           {/* Shop Women Button */}
           <Link
             to="/category/women"
-            className="group flex items-center justify-center gap-2 bg-[#000000] text-[#FFFFFF] px-8 py-4 rounded-[8px] transition-all duration-300 hover:bg-[#333333] min-w-[180px]"
+            className="group flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-[8px] transition-all duration-300 hover:bg-gray-100 min-w-[180px] shadow-lg"
           >
             <span className="text-[16px] font-medium">Shop Women</span>
             <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -45,7 +45,7 @@ const HeroSection: React.FC = () => {
           {/* Shop Men Button */}
           <Link
             to="/category/men"
-            className="group flex items-center justify-center gap-2 bg-[#FFFFFF] border border-[#000000] text-[#000000] px-8 py-4 rounded-[8px] transition-all duration-300 hover:bg-[#F5F5F5] min-w-[180px]"
+            className="group flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-[8px] transition-all duration-300 hover:bg-white/10 backdrop-blur-sm min-w-[180px]"
           >
             <span className="text-[16px] font-medium">Shop Men</span>
             <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -57,7 +57,7 @@ const HeroSection: React.FC = () => {
 
   const heroContent = (
     <section
-      className="relative w-full overflow-hidden flex flex-col items-center justify-center min-h-[90vh] md:h-[900px] bg-[#F5F5F5]"
+      className="relative w-full overflow-hidden flex flex-col items-center justify-center min-h-[90vh] md:h-[900px] bg-black"
       style={{
         padding: '0px',
       }}
@@ -73,8 +73,8 @@ const HeroSection: React.FC = () => {
             playsInline
             className="w-full h-full object-cover"
           />
-          {/* Subtle overlay */}
-          <div className="absolute inset-0 bg-black/5 pointer-events-none" />
+          {/* Gradient overlay for text visibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/50 pointer-events-none" />
         </div>
       </div>
 

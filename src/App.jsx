@@ -11,13 +11,13 @@ const Loading = () => (
 import Navigation from "@/components/sections/navigation";
 import HeroSection from "@/components/sections/hero";
 import PastelDreamsCollection from "@/components/sections/pastel-dreams-collection";
-import BrandStory from "@/components/sections/brand-story";
 import Summer2025Collection from "@/components/sections/summer-2025-collection";
 import ShopCategories from "@/components/sections/shop-categories";
 import FeaturesGrid from "@/components/sections/features-grid";
 import Footer from "@/components/sections/footer";
 import AuthModal from "@/components/sections/auth-modal";
 import SocialSection from "@/components/sections/social-section";
+import FeaturedProducts from "@/components/sections/featured-products";
 import MobileBottomNav from "./components/MobileBottomNav";
 
 // Lazy Load Pages
@@ -144,7 +144,7 @@ function HomePage() {
       <div className="pt-[56px]">
         <HeroSection />
         <PastelDreamsCollection />
-        <BrandStory />
+        <FeaturedProducts />
         <Summer2025Collection />
         <ShopCategories />
         <FeaturesGrid />

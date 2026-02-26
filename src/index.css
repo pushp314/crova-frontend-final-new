@@ -5,39 +5,16 @@
 @tailwind utilities;
 
 @layer base {
-
-  /* Global Film Grain & Filter Effect */
-  html {
-    /* Only apply contrast/brightness globally. Grayscale is applied per-image to allow exceptions */
-    filter: contrast(110%) brightness(95%) sepia(10%);
-  }
-
-  /* Overlay for grain effect */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 9999;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    opacity: 0.15;
-    mix-blend-mode: overlay;
-  }
-
-  /* Default all media to B&W */
+  /* Default all media to original color */
   img,
   video {
-    filter: grayscale(100%);
     transition: filter 0.5s ease;
   }
 
   /* Allow specific images to reveal color */
   .reveal-color,
   .reveal-color img {
-    filter: grayscale(0%) !important;
+    filter: none !important;
   }
 
   :root {
