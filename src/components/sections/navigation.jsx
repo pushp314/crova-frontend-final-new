@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBag, User, LogOut } from "lucide-react";
+import { ShoppingBag, User, LogOut, Sparkles } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import SearchModal from "../SearchModal";
@@ -43,7 +43,7 @@ const Navigation = () => {
         { name: "Minimalist Edit", href: "/collections/minimalist-edit" },
         { name: "Signature Series", href: "/collections/signature-series" },
         { name: "Waitlist: Timeless", href: "/collections/timeless-together" },
-        { name: "Customize", href: "/custom-design" },
+        { name: "Customize T-Shirt", href: "/custom-design" },
       ],
     },
     Company: {
@@ -108,6 +108,17 @@ const Navigation = () => {
                 )}
               </div>
             ))}
+
+            {/* Direct Link for Customize */}
+            <div className="h-full flex items-center">
+              <Link
+                to="/custom-design"
+                className="text-[14px] font-semibold text-black px-4 py-1.5 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 flex items-center gap-2"
+              >
+                <Sparkles size={14} className="text-yellow-500 fill-yellow-500" />
+                Customize
+              </Link>
+            </div>
           </div>
 
           {/* Mega Menu Dropdown */}

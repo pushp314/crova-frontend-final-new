@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#F5F5F5] pt-[120px] pb-10">
+    <footer className="w-full bg-black pt-[120px] pb-10 text-white">
       <div className="container mx-auto px-4 max-w-[1440px]">
         {/* Main Footer Card */}
-        <div className="bg-black text-white rounded-[24px] lg:rounded-[40px] px-8 lg:px-16 pt-16 lg:pt-24 pb-8 overflow-hidden relative flex flex-col items-center">
+        <div className="bg-white/5 border border-white/10 rounded-[24px] lg:rounded-[40px] px-8 lg:px-16 pt-16 lg:pt-24 pb-8 overflow-hidden relative flex flex-col items-center">
 
           {/* Top Section: Newsletter and Links */}
           <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-12">
@@ -46,6 +46,7 @@ const Footer = () => {
                   <li><Link to="/category/women" className="hover:opacity-60 transition-soft">Women</Link></li>
                   <li><Link to="/category/men" className="hover:opacity-60 transition-soft">Men</Link></li>
                   <li><Link to="/collections" className="hover:opacity-60 transition-soft">Collections</Link></li>
+                  <li><Link to="/custom-design" className="hover:opacity-60 transition-soft text-white font-medium">Customize T-Shirt</Link></li>
                   <li><Link to="/shop" className="hover:opacity-60 transition-soft">Shop All</Link></li>
                 </ul>
               </div>
@@ -111,8 +112,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar (Outside Purple Box) */}
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-[13px] text-[#666666] font-medium px-2">
+        {/* Bottom Bar (Outside Main Box) */}
+        <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-[13px] text-white/60 font-medium px-2">
           <div className="mb-4 md:mb-0">
             © Crova, 2025
           </div>
