@@ -1,10 +1,12 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '../utils/imageUtils';
 
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity, loading } = useCart();
+    const { user, openAuthModal } = useAuth();
     const [updatingItems, setUpdatingItems] = React.useState(new Set());
 
     const handleUpdateQuantity = async (variantId, newQuantity) => {
@@ -31,6 +33,21 @@ const Cart = () => {
         return (
             <div className="min-h-screen pt-32 flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+            </div>
+        );
+    }
+
+    if (!user) {
+        return (
+            <div className="min-h-screen pt-32 px-4 flex flex-col items-center justify-center">
+                <h2 className="text-2xl font-display mb-4">Your shopping bag is waiting</h2>
+                <p className="text-secondary mb-8 text-center max-w-md">Login to see the items you've added and proceed to checkout.</p>
+                <button
+                    onClick={openAuthModal}
+                    className="px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors"
+                >
+                    Sign In
+                </button>
             </div>
         );
     }
@@ -116,12 +133,21 @@ const Cart = () => {
                                 <span>₹{cart.items.reduce((acc, item) => acc + (item.quantity * parseFloat(item.product?.price || 0)), 0).toFixed(2)}</span>
                             </div>
                         </div>
-                        <Link
-                            to="/checkout"
-                            className="block w-full text-center py-4 bg-black text-white hover:bg-gray-900 transition-colors"
-                        >
-                            Proceed to Checkout
-                        </Link>
+                        {user ? (
+                            <Link
+                                to="/checkout"
+                                className="block w-full text-center py-4 bg-black text-white hover:bg-gray-900 transition-colors"
+                            >
+                                Proceed to Checkout
+                            </Link>
+                        ) : (
+                            <button
+                                onClick={openAuthModal}
+                                className="block w-full text-center py-4 bg-black text-white hover:bg-gray-900 transition-colors"
+                            >
+                                Login to Checkout
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

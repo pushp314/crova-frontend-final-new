@@ -58,6 +58,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
+import ProtectedRoute from './components/ProtectedRoute';
 
 import { getBanners } from './api/banners';
 import BannerPopup from './components/BannerPopup';
@@ -189,7 +190,11 @@ function App() {
               <Route path="faq" element={<FAQPage />} />
               <Route path="contact" element={<ContactUs />} />
               <Route path="journal" element={<Journal />} />
-              <Route path="checkout" element={<Checkout />} />
+              <Route path="checkout" element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              } />
               <Route path="order-success" element={<OrderSuccess />} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="custom-design" element={<CustomDesign />} />
