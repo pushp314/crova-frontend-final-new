@@ -142,4 +142,31 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* Product Description Typography */
+  .product-description h3 {
+    @apply text-xl font-bold text-gray-900 mt-8 mb-4 border-l-4 border-black pl-3;
+  }
+
+  .product-description p {
+    @apply text-gray-600 leading-relaxed mb-4;
+  }
+
+  .product-description strong {
+    @apply text-gray-900 font-semibold;
+  }
+
+  .product-description ul,
+  .product-description ol {
+    @apply my-6 space-y-2;
+  }
+
+  .product-description li {
+    @apply flex items-start gap-2 text-gray-600;
+  }
+
+  .product-description li::before {
+    content: "•";
+    @apply text-black font-bold;
+  }
 }
