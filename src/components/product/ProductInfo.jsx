@@ -32,9 +32,17 @@ const ProductInfo = ({ product, itemVariants }) => {
                 </span>
             </motion.div>
 
-            <motion.p variants={itemVariants} className="text-gray-600 leading-relaxed text-lg mb-10 max-w-xl">
-                {product.description || "Experience the perfect blend of style and comfort. Crafted with precision for the modern individual, this piece is a versatile addition to any wardrobe."}
-            </motion.p>
+            {product.description ? (
+                <motion.div
+                    variants={itemVariants}
+                    className="text-gray-600 leading-relaxed text-lg mb-10 max-w-xl prose prose-sm"
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                />
+            ) : (
+                <motion.p variants={itemVariants} className="text-gray-600 leading-relaxed text-lg mb-10 max-w-xl">
+                    Experience the perfect blend of style and comfort. Crafted with precision for the modern individual, this piece is a versatile addition to any wardrobe.
+                </motion.p>
+            )}
 
             <motion.div variants={itemVariants} className="h-px bg-gray-200 w-full mb-10" />
 

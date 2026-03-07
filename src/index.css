@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 @layer base {
+
   /* Default all media to original color */
   img,
   video {
@@ -131,5 +132,14 @@
 
   .text-muted {
     color: var(--color-text-muted);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

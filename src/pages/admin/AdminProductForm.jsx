@@ -27,7 +27,18 @@ const AdminProductForm = () => {
     const [previewImages, setPreviewImages] = useState([]);
     const [collections, setCollections] = useState([]);
     const [selectedCollections, setSelectedCollections] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState([]);
     const [discount, setDiscount] = useState('');
+
+    const commonSizes = ['S', 'M', 'L', 'XL', 'XXL', 'Free Size'];
+
+    const toggleSize = (size) => {
+        setSelectedSizes(prev =>
+            prev.includes(size)
+                ? prev.filter(s => s !== size)
+                : [...prev, size]
+        );
+    };
 
     useEffect(() => {
         fetchCategories();
@@ -83,6 +94,12 @@ const AdminProductForm = () => {
                 // Set collections
                 if (product.collections) {
                     setSelectedCollections(product.collections.map(c => c.id));
+                }
+
+                // Set sizes
+                if (product.variants) {
+                    const sizes = [...new Set(product.variants.map(v => v.size))];
+                    setSelectedSizes(sizes);
                 }
 
                 // Calculate discount
@@ -168,6 +185,7 @@ const AdminProductForm = () => {
             data.append('category', formData.category);
             data.append('stock', formData.stock);
             data.append('isActive', formData.isActive);
+            data.append('sizes', JSON.stringify(selectedSizes));
 
             selectedCollections.forEach(id => {
                 data.append('collections[]', id);
@@ -352,6 +370,35 @@ const AdminProductForm = () => {
                             </label>
                         ))}
                     </div>
+                </div>
+
+                {/* Sizes */}
+                <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-lg font-semibold">Available Sizes</h2>
+                        <span className="text-xs text-gray-500">Pick sizes for this product</span>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        {commonSizes.map(size => (
+                            <label key={size} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${selectedSizes.includes(size)
+                                ? 'border-black bg-gray-50 ring-1 ring-black'
+                                : 'border-gray-200 hover:border-gray-300'
+                                }`}>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedSizes.includes(size)}
+                                    onChange={() => toggleSize(size)}
+                                    className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                                />
+                                <span className="text-sm font-medium text-gray-700">{size}</span>
+                            </label>
+                        ))}
+                    </div>
+                    {selectedSizes.length === 0 && (
+                        <p className="text-xs text-amber-600 bg-amber-50 p-2 rounded">
+                            No sizes selected. Default will be 'Free Size'.
+                        </p>
+                    )}
                 </div>
 
                 {/* Images */}
