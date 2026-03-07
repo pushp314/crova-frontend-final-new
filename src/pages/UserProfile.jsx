@@ -293,7 +293,9 @@ const UserProfile = () => {
 
                                                 <div className="mt-4 flex justify-between items-center border-t border-gray-100 pt-4">
                                                     <p className="font-medium">Total: ₹{Number(order.totalAmount).toFixed(2)}</p>
-                                                    {/* <button className="text-sm font-medium underline">View Details</button> */}
+                                                    <Link to={`/order/${order.id}`} className="text-sm font-medium underline hover:text-gray-600 transition-colors">
+                                                        View Details
+                                                    </Link>
                                                 </div>
                                             </div>
                                         ))}

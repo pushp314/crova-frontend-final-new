@@ -58,6 +58,8 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
+const OrderDetails = lazy(() => import("./pages/OrderDetails"));
+const AdminOrderDetail = lazy(() => import("./pages/admin/AdminOrderDetail"));
 import ProtectedRoute from './components/ProtectedRoute';
 
 import { getBanners } from './api/banners';
@@ -197,6 +199,11 @@ function App() {
               } />
               <Route path="order-success" element={<OrderSuccess />} />
               <Route path="profile" element={<UserProfile />} />
+              <Route path="order/:id" element={
+                <ProtectedRoute>
+                  <OrderDetails />
+                </ProtectedRoute>
+              } />
               <Route path="custom-design" element={<CustomDesign />} />
               <Route path="privacy-policy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<Terms />} />
@@ -225,6 +232,7 @@ function App() {
         <Route path="collections/new" element={<AdminCollectionForm />} />
         <Route path="collections/:id/edit" element={<AdminCollectionForm />} />
         <Route path="orders" element={<AdminOrders />} />
+        <Route path="orders/:id" element={<AdminOrderDetail />} />
         <Route path="users" element={<AdminUsers />} />
         <Route path="settings" element={<AdminSettings />} />
         <Route path="designs" element={<AdminDesignInquiries />} />
