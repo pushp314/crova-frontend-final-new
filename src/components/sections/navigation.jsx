@@ -110,7 +110,15 @@ const Navigation = () => {
             ))}
 
             {/* Direct Link for Customize */}
-            <div className="h-full flex items-center">
+            <div className="h-full flex items-center gap-4">
+              {user?.role === 'admin' && (
+                <Link
+                  to="/admin"
+                  className="text-[14px] font-semibold text-white px-4 py-1.5 rounded-full bg-red-600 hover:bg-red-700 shadow-md transition-all duration-300 flex items-center gap-2"
+                >
+                  Admin Panel
+                </Link>
+              )}
               <Link
                 to="/custom-design"
                 className="text-[14px] font-semibold text-black px-4 py-1.5 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 flex items-center gap-2"

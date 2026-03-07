@@ -19,6 +19,7 @@ import AuthModal from "@/components/sections/auth-modal";
 import SocialSection from "@/components/sections/social-section";
 import FeaturedProducts from "@/components/sections/featured-products";
 import MobileBottomNav from "./components/MobileBottomNav";
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy Load Pages
 const Shop = lazy(() => import("./pages/Shop"));
@@ -104,10 +105,14 @@ function Layout() {
       requestAnimationFrame(raf);
     }
 
+    // Expose lenis to window for ScrollToTop component
+    window.lenis = lenis;
+
     requestAnimationFrame(raf);
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 
@@ -159,86 +164,89 @@ function HomePage() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="*" element={
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="*" element={
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route path="shop" element={<Shop />} />
+
+                {/* Women Routes */}
+                <Route path="category/women" element={<ShopWomen />} />
+                <Route path="category/women/:subCategory" element={<ShopWomen />} />
+
+                {/* Men Routes */}
+                <Route path="category/men" element={<ShopMen />} />
+                <Route path="category/men/:subCategory" element={<ShopMen />} />
+
+                {/* Collections */}
+                <Route path="collections" element={<Collections />} />
+                <Route path="collections/:collectionSlug" element={<CollectionDetail />} />
+
+                <Route path="category/:categorySlug" element={<CategoryPage />} />
+                <Route path="product/:slug" element={<ProductDetails />} />
+                <Route path="auth" element={<Auth />} />
+                <Route path="auth/success" element={<AuthSuccess />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="reset-password" element={<ResetPassword />} />
+                <Route path="track-order" element={<TrackOrder />} />
+                <Route path="wishlist" element={<Wishlist />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="about" element={<About />} />
+                <Route path="faq" element={<FAQPage />} />
+                <Route path="contact" element={<ContactUs />} />
+                <Route path="journal" element={<Journal />} />
+                <Route path="checkout" element={
+                  <ProtectedRoute>
+                    <Checkout />
+                  </ProtectedRoute>
+                } />
+                <Route path="order-success" element={<OrderSuccess />} />
+                <Route path="profile" element={<UserProfile />} />
+                <Route path="order/:id" element={
+                  <ProtectedRoute>
+                    <OrderDetails />
+                  </ProtectedRoute>
+                } />
+                <Route path="custom-design" element={<CustomDesign />} />
+                <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="terms" element={<Terms />} />
+
+                {/* Fallback for undefined routes within layout */}
+                <Route path="*" element={<HomePage />} />
+              </Routes>
+            </Suspense>
+          } />
+        </Route>
+
+        {/* Admin Routes with separate Suspense */}
+        <Route path="/admin" element={
           <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="shop" element={<Shop />} />
-
-              {/* Women Routes */}
-              <Route path="category/women" element={<ShopWomen />} />
-              <Route path="category/women/:subCategory" element={<ShopWomen />} />
-
-              {/* Men Routes */}
-              <Route path="category/men" element={<ShopMen />} />
-              <Route path="category/men/:subCategory" element={<ShopMen />} />
-
-              {/* Collections */}
-              <Route path="collections" element={<Collections />} />
-              <Route path="collections/:collectionSlug" element={<CollectionDetail />} />
-
-              <Route path="category/:categorySlug" element={<CategoryPage />} />
-              <Route path="product/:slug" element={<ProductDetails />} />
-              <Route path="auth" element={<Auth />} />
-              <Route path="auth/success" element={<AuthSuccess />} />
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="reset-password" element={<ResetPassword />} />
-              <Route path="track-order" element={<TrackOrder />} />
-              <Route path="wishlist" element={<Wishlist />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="about" element={<About />} />
-              <Route path="faq" element={<FAQPage />} />
-              <Route path="contact" element={<ContactUs />} />
-              <Route path="journal" element={<Journal />} />
-              <Route path="checkout" element={
-                <ProtectedRoute>
-                  <Checkout />
-                </ProtectedRoute>
-              } />
-              <Route path="order-success" element={<OrderSuccess />} />
-              <Route path="profile" element={<UserProfile />} />
-              <Route path="order/:id" element={
-                <ProtectedRoute>
-                  <OrderDetails />
-                </ProtectedRoute>
-              } />
-              <Route path="custom-design" element={<CustomDesign />} />
-              <Route path="privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="terms" element={<Terms />} />
-
-              {/* Fallback for undefined routes within layout */}
-              <Route path="*" element={<HomePage />} />
-            </Routes>
+            <AdminLayout />
           </Suspense>
-        } />
-      </Route>
-
-      {/* Admin Routes with separate Suspense */}
-      <Route path="/admin" element={
-        <Suspense fallback={<Loading />}>
-          <AdminLayout />
-        </Suspense>
-      }>
-        <Route index element={<AdminDashboard />} />
-        <Route path="products" element={<AdminProducts />} />
-        <Route path="products/new" element={<AdminProductForm />} />
-        <Route path="products/:id/edit" element={<AdminProductForm />} />
-        <Route path="categories" element={<AdminCategories />} />
-        <Route path="categories/new" element={<AdminCategoryForm />} />
-        <Route path="categories/:id/edit" element={<AdminCategoryForm />} />
-        <Route path="collections" element={<AdminCollections />} />
-        <Route path="collections/new" element={<AdminCollectionForm />} />
-        <Route path="collections/:id/edit" element={<AdminCollectionForm />} />
-        <Route path="orders" element={<AdminOrders />} />
-        <Route path="orders/:id" element={<AdminOrderDetail />} />
-        <Route path="users" element={<AdminUsers />} />
-        <Route path="settings" element={<AdminSettings />} />
-        <Route path="designs" element={<AdminDesignInquiries />} />
-        <Route path="audit-logs" element={<AdminAuditLogs />} />
-      </Route>
-    </Routes>
+        }>
+          <Route index element={<AdminDashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="products/new" element={<AdminProductForm />} />
+          <Route path="products/:id/edit" element={<AdminProductForm />} />
+          <Route path="categories" element={<AdminCategories />} />
+          <Route path="categories/new" element={<AdminCategoryForm />} />
+          <Route path="categories/:id/edit" element={<AdminCategoryForm />} />
+          <Route path="collections" element={<AdminCollections />} />
+          <Route path="collections/new" element={<AdminCollectionForm />} />
+          <Route path="collections/:id/edit" element={<AdminCollectionForm />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/:id" element={<AdminOrderDetail />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="settings" element={<AdminSettings />} />
+          <Route path="designs" element={<AdminDesignInquiries />} />
+          <Route path="audit-logs" element={<AdminAuditLogs />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

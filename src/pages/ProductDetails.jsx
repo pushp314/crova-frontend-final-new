@@ -116,10 +116,6 @@ const ProductView = () => {
 
     // Let's stick to real data for performance phase.
 
-    // Effect for scroll to top
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [slug]);
 
     // Derived State
     const availableSizes = product ? [...new Set(product.variants?.map((v) => v.size) || [])] : [];
