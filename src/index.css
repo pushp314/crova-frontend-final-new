@@ -145,16 +145,19 @@
 
   /* Product Description Typography - Professional E-com Style */
   .product-description {
-    @apply text-[15px] sm:text-[16px] text-gray-600 leading-[1.7] antialiased tracking-tight font-normal w-full overflow-hidden;
+    @apply text-[15px] sm:text-[16px] text-gray-600 leading-[1.8] antialiased tracking-normal font-normal w-full overflow-hidden;
   }
 
-  /* Simple Paragraph styling */
-  .product-description p {
-    @apply mb-4 last:mb-0 text-gray-600 whitespace-pre-line break-words;
-    word-break: break-word;
-    overflow-wrap: break-word;
+  /* Reset any potential legacy borders or unusual styles from pasted content */
+  .product-description * {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
   }
 
+  .product-description h1,
   .product-description h2,
   .product-description h3,
   .product-description h4 {
