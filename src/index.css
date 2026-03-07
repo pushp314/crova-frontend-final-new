@@ -145,26 +145,26 @@
 
   /* Product Description Typography - Professional E-com Style */
   .product-description {
-    @apply text-gray-600 leading-relaxed antialiased;
+    @apply text-[15px] sm:text-[16px] text-gray-600 leading-[1.8] antialiased tracking-normal font-normal;
   }
 
   .product-description h1,
   .product-description h2,
   .product-description h3,
   .product-description h4 {
-    @apply font-bold text-gray-900 mb-4 mt-8 tracking-tight;
+    @apply font-bold text-gray-900 mb-4 mt-8 tracking-tight leading-snug;
   }
 
   .product-description h1 {
-    @apply text-3xl;
+    @apply text-3xl sm:text-4xl;
   }
 
   .product-description h2 {
-    @apply text-2xl;
+    @apply text-2xl sm:text-3xl;
   }
 
   .product-description h3 {
-    @apply text-xl;
+    @apply text-xl sm:text-2xl;
   }
 
   .product-description h4 {
@@ -172,28 +172,28 @@
   }
 
   .product-description p {
-    @apply mb-5 last:mb-0;
+    @apply mb-6 last:mb-0 text-gray-600;
   }
 
   .product-description strong {
-    @apply text-gray-950 font-bold;
+    @apply text-gray-900 font-semibold;
   }
 
   .product-description ul,
   .product-description ol {
-    @apply my-6 space-y-3 pl-1;
+    @apply my-6 space-y-3.5 pl-1;
   }
 
   .product-description li {
-    @apply flex items-start gap-3;
+    @apply flex items-start gap-3.5 leading-relaxed text-gray-600;
   }
 
   .product-description li::before {
     content: "";
-    @apply mt-2.5 w-1.5 h-1.5 rounded-full bg-black shrink-0;
+    @apply mt-[11px] w-1.5 h-1.5 rounded-full bg-black shrink-0 opacity-80;
   }
 
   .product-description blockquote {
-    @apply border-l-2 border-gray-200 pl-4 italic my-6 text-gray-500;
+    @apply border-l-2 border-gray-900 pl-6 italic my-8 text-gray-700 font-medium;
   }
 }
