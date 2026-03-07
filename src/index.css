@@ -181,8 +181,9 @@
   }
 
   .product-description p {
-    @apply mb-6 last:mb-0 text-gray-600 whitespace-normal overflow-wrap-break-word break-words;
+    @apply mb-6 last:mb-0 text-gray-600 whitespace-normal break-words;
     word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .product-description strong {
