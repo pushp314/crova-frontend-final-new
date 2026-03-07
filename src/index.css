@@ -145,14 +145,23 @@
 
   /* Product Description Typography - Professional E-com Style */
   .product-description {
-    @apply text-[15px] sm:text-[16px] text-gray-600 leading-[1.8] antialiased tracking-normal font-normal;
+    @apply text-[15px] sm:text-[16px] text-gray-600 leading-[1.8] antialiased tracking-normal font-normal w-full overflow-hidden;
+  }
+
+  /* Reset any potential legacy borders or unusual styles from pasted content */
+  .product-description * {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
   }
 
   .product-description h1,
   .product-description h2,
   .product-description h3,
   .product-description h4 {
-    @apply font-bold text-gray-900 mb-4 mt-8 tracking-tight leading-snug;
+    @apply font-bold text-gray-900 mb-4 mt-8 tracking-tight leading-snug !border-none;
   }
 
   .product-description h1 {
@@ -172,7 +181,8 @@
   }
 
   .product-description p {
-    @apply mb-6 last:mb-0 text-gray-600;
+    @apply mb-6 last:mb-0 text-gray-600 whitespace-normal overflow-wrap-break-word break-words;
+    word-break: break-word;
   }
 
   .product-description strong {
@@ -194,6 +204,6 @@
   }
 
   .product-description blockquote {
-    @apply border-l-2 border-gray-900 pl-6 italic my-8 text-gray-700 font-medium;
+    @apply border-l-2 border-gray-900 !important pl-6 italic my-8 text-gray-700 font-medium;
   }
 }

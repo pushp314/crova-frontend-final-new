@@ -35,7 +35,7 @@ const ProductInfo = ({ product, itemVariants }) => {
             {product.description ? (
                 <motion.div
                     variants={itemVariants}
-                    className="mb-10 max-w-xl product-description"
+                    className="mb-10 w-full max-w-full lg:max-w-xl product-description overflow-hidden break-words whitespace-normal"
                     dangerouslySetInnerHTML={{ __html: product.description }}
                 />
             ) : (
