@@ -205,6 +205,7 @@
   }
 
   .product-description blockquote {
-    @apply border-l-2 border-gray-900 !important pl-6 italic my-8 text-gray-700 font-medium;
+    @apply border-l-2 border-gray-900 pl-6 italic my-8 text-gray-700 font-medium;
+    border-left-width: 2px !important;
   }
 }
