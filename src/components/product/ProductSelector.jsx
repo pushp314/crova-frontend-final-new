@@ -18,39 +18,31 @@ const ProductSelector = ({
     handleQuantityChange,
     handleAddToCart,
     isOutOfStock,
-    isAdded
+    isAdded,
+    isInWishlist,
+    handleWishlistClick,
+    handleShare
 }) => {
-    const { user } = useAuth();
-    const { data: wishlistData } = useWishlist({ enabled: !!user });
-    const { mutate: addToWishlist } = useAddToWishlist();
-    const { mutate: removeFromWishlist } = useRemoveFromWishlist();
-
-    const isInWishlist = useMemo(() => {
-        if (!wishlistData?.data?.wishlist?.items || !product) return false;
-        return wishlistData.data.wishlist.items.some(item => item.productId === product.id);
-    }, [wishlistData, product]);
-
-    const handleWishlistClick = () => {
-        if (!user) {
-            toast.error("Please login to use wishlist");
-            return;
-        }
-
-        if (isInWishlist) {
-            removeFromWishlist(product.id);
-        } else {
-            addToWishlist({ productId: product.id });
-        }
-    };
-
     const colorMap = {
         'Pure White': '#FFFFFF',
+        'White': '#FFFFFF',
         'Jet Black': '#000000',
+        'Black': '#000000',
         'Navy Blue': '#000080',
+        'Blue': '#000080',
         'Royal Red': '#E31E24',
+        'Red': '#E31E24',
         'Forest Green': '#228B22',
+        'Green': '#228B22',
         'Heather Grey': '#808080',
+        'Grey': '#808080',
         'Beige': '#F5F5DC',
+        'Yellow': '#FFD700',
+        'Pink': '#FFC0CB',
+        'Purple': '#800080',
+        'Orange': '#FFA500',
+        'Brown': '#A52A2A',
+        'Ivory': '#FFFFF0',
         'Default': '#000000'
     };
 
@@ -59,7 +51,7 @@ const ProductSelector = ({
             {/* Selectors */}
             <div className="space-y-8 mb-10">
                 {/* Visual Color Selector */}
-                {availableColors.length > 0 && availableColors[0] !== 'Default' && (
+                {availableColors.length > 0 && (
                     <motion.div variants={itemVariants}>
                         <span className="block text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
                             Color: <span className="text-gray-500 font-normal capitalize">{selectedColor}</span>
@@ -180,18 +172,7 @@ const ProductSelector = ({
 
                         {/* Share Button */}
                         <button
-                            onClick={() => {
-                                if (navigator.share) {
-                                    navigator.share({
-                                        title: product.name,
-                                        text: `Check out ${product.name} on Crova`,
-                                        url: window.location.href,
-                                    }).catch(console.error);
-                                } else {
-                                    navigator.clipboard.writeText(window.location.href);
-                                    toast.success("Link copied to clipboard!");
-                                }
-                            }}
+                            onClick={handleShare}
                             className="h-[60px] w-[60px] flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 hover:border-black hover:text-black transition-all duration-300"
                             title="Share Product"
                         >

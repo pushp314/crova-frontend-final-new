@@ -6,6 +6,9 @@ import { Minus, Plus, Truck, Ruler, CreditCard, RotateCcw, Heart, Share2 } from 
 import api from "../api/client";
 import { useProduct } from "../hooks/queries/useProducts";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import { useWishlist, useAddToWishlist, useRemoveFromWishlist } from "../hooks/queries/useWishlist";
+import toast from 'react-hot-toast';
 import ProductImageGallery from "../components/product/ProductImageGallery";
 import ProductInfo from "../components/product/ProductInfo";
 import ProductSelector from "../components/product/ProductSelector";
@@ -81,6 +84,12 @@ const ProductView = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
     const { addToCart } = useCart();
+    const { user } = useAuth();
+
+    // Wishlist Logic
+    const { data: wishlistData } = useWishlist({ enabled: !!user });
+    const { mutate: addToWishlist } = useAddToWishlist();
+    const { mutate: removeFromWishlist } = useRemoveFromWishlist();
 
     // React Query
     const { data: productData, isLoading, isError } = useProduct(slug);
@@ -91,18 +100,15 @@ const ProductView = () => {
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
 
-    // Initialize variants when product loads
+    // Reset selections when product changes
     useEffect(() => {
         if (product && product.variants && product.variants.length > 0) {
-            // Only set if not already set (to preserve selection if re-fetching? 
-            // actually on first load both are empty string)
-            if (!selectedSize && !selectedColor) {
-                const firstVariant = product.variants[0];
-                setSelectedSize(firstVariant.size);
-                setSelectedColor(firstVariant.color);
-            }
+            const firstVariant = product.variants[0];
+            setSelectedSize(firstVariant.size);
+            // If color is Default, we still set it but the selector will hide it if it's the only one
+            setSelectedColor(firstVariant.color);
         }
-    }, [product]);
+    }, [product?.id]);
 
     // Handle mocks or errors if needed, but for now we rely on API
     // If we strictly want the mock fallback:
@@ -119,7 +125,39 @@ const ProductView = () => {
 
     // Derived State
     const availableSizes = product ? [...new Set(product.variants?.map((v) => v.size) || [])] : [];
-    const availableColors = product ? [...new Set(product.variants?.map((v) => v.color) || [])] : [];
+    const availableColors = product 
+        ? [...new Set(product.variants?.map((v) => v.color) || [])].filter(c => c !== 'Default') 
+        : [];
+
+    const isInWishlist = React.useMemo(() => {
+        if (!wishlistData?.data?.wishlist?.items || !product) return false;
+        return wishlistData.data.wishlist.items.some(item => item.productId === product.id);
+    }, [wishlistData, product]);
+
+    const handleWishlistClick = () => {
+        if (!user) {
+            toast.error("Please login to use wishlist");
+            return;
+        }
+        if (isInWishlist) {
+            removeFromWishlist(product.id);
+        } else {
+            addToWishlist({ productId: product.id });
+        }
+    };
+
+    const handleShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: product.name,
+                text: `Check out ${product.name} on Crova`,
+                url: window.location.href,
+            }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            toast.success("Link copied to clipboard!");
+        }
+    };
 
     const currentVariant = product?.variants?.find(
         (v) => v.size === selectedSize && v.color === selectedColor
@@ -211,7 +249,12 @@ const ProductView = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
                     {/* Left Column - Image */}
-                    <ProductImageGallery product={product} />
+                    <ProductImageGallery 
+                        product={product} 
+                        isInWishlist={isInWishlist}
+                        handleWishlistClick={handleWishlistClick}
+                        handleShare={handleShare}
+                    />
 
                     {/* Right Column - Info */}
                     <motion.div className="flex flex-col pt-4" variants={itemVariants}>
@@ -231,6 +274,9 @@ const ProductView = () => {
                             handleAddToCart={handleAddToCart}
                             isOutOfStock={isOutOfStock}
                             isAdded={isAdded}
+                            isInWishlist={isInWishlist}
+                            handleWishlistClick={handleWishlistClick}
+                            handleShare={handleShare}
                         />
 
                     </motion.div>

@@ -12,7 +12,7 @@ const imageVariants = {
     }
 };
 
-const ProductImageGallery = ({ product }) => {
+const ProductImageGallery = ({ product, isInWishlist, handleWishlistClick, handleShare }) => {
     const images = product?.images?.length > 0
         ? product.images.map(img => getImageUrl(img.imagePath))
         : ["https://framerusercontent.com/images/u1w5u5k.jpg"];
@@ -77,11 +77,19 @@ const ProductImageGallery = ({ product }) => {
 
                 {/* Interactive Buttons on Image */}
                 <div className="absolute bottom-6 right-6 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <button className="p-3 bg-white rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
+                    <button 
+                        onClick={(e) => { e.stopPropagation(); handleShare(); }}
+                        className="p-3 bg-white rounded-full shadow-lg hover:bg-black hover:text-white transition-colors"
+                        title="Share Product"
+                    >
                         <Share2 className="w-5 h-5" />
                     </button>
-                    <button className="p-3 bg-white rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
-                        <Heart className="w-5 h-5" />
+                    <button 
+                        onClick={(e) => { e.stopPropagation(); handleWishlistClick(); }}
+                        className={`p-3 rounded-full shadow-lg transition-all duration-300 ${isInWishlist ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white hover:bg-black hover:text-white'}`}
+                        title={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+                    >
+                        <Heart className={`w-5 h-5 ${isInWishlist ? 'fill-current' : ''}`} />
                     </button>
                 </div>
             </motion.div>
