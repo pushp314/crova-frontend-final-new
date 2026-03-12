@@ -38,7 +38,7 @@ const OrderDetails = () => {
     if (!order) {
         return (
             <div className="min-h-screen pt-32 px-4 text-center">
-                < शॉपिंगBag className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <ShoppingBag className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Order Not Found</h2>
                 <p className="text-gray-500 mb-8">We couldn't find the order you're looking for.</p>
                 <Link to="/profile" className="px-8 py-3 bg-black text-white rounded-full font-medium">

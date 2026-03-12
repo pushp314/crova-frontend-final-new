@@ -25,11 +25,19 @@ const AdminProducts = () => {
         setLoading(true);
         try {
             const params = {
-                includeInactive: true,
-                search: searchTerm
+                search: searchTerm,
+                includeInactive: filter === 'inactive' || filter === 'all' // Show inactive in 'all' and 'inactive'
             };
             if (filter === 'featured') params.featured = true;
             if (filter === 'inactive') params.isActive = false;
+            // If filter is 'all', the backend default (if includeInactive is false) would be active only.
+            // But usually admin wants to see everything. 
+            // However, if they 'deleted' something and it stays in 'all', it's confusing.
+            // Let's make 'all' only show active products, and 'inactive' show the 'deleted' ones.
+            if (filter === 'all') {
+                params.isActive = true;
+                params.includeInactive = false;
+            }
 
             const { data } = await api.get('/products', { params });
             setProducts(data.data?.products || data.products || []);
@@ -65,11 +73,11 @@ const AdminProducts = () => {
 
         try {
             setLoading(true);
-            await api.post('/products/bulk-action', {
+            const { data } = await api.post('/products/bulk-action', {
                 ids: selectedIds,
                 action: action
             });
-            toast.success('Bulk action completed');
+            toast.success(data.message || 'Bulk action completed');
             setSelectedIds([]);
             fetchProducts();
         } catch (error) {
@@ -84,7 +92,9 @@ const AdminProducts = () => {
         if (!confirm('Are you sure you want to delete this product?')) return;
 
         try {
-            await api.delete(`/products/${id}`);
+            const { data } = await api.delete(`/products/${id}`);
+            toast.success(data.message || 'Product deleted');
+            // Remove from list immediately
             setProducts(products.filter(p => p.id !== id));
         } catch (error) {
             console.error('Error deleting product:', error);

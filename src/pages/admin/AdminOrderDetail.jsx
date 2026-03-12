@@ -166,6 +166,12 @@ const AdminOrderDetail = () => {
                                         <div className="flex items-center gap-4 text-sm text-gray-500 uppercase font-bold tracking-wider">
                                             <p>Size: <span className="text-black">{item.variant?.size}</span></p>
                                             <p>Qty: <span className="text-black font-mono">{item.quantity}</span></p>
+                                            {item.variant?.color && item.variant.color !== 'Default' && (
+                                                <p>Color: <span className="text-black">{item.variant.color}</span></p>
+                                            )}
+                                            {item.customColor && (
+                                                <p>Palette Color: <span className="text-black">{item.customColor}</span></p>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="text-right">

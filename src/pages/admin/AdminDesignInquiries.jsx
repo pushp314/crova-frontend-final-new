@@ -149,6 +149,11 @@ const AdminDesignInquiries = () => {
                                         <div className="flex items-center gap-2">
                                             <Clock className="w-4 h-4" /> {new Date(selectedInquiry.createdAt).toLocaleString()}
                                         </div>
+                                        {selectedInquiry.customColor && (
+                                            <div className="flex items-center gap-2 font-bold text-black mt-1">
+                                                <PenTool className="w-4 h-4" /> Requested Color: {selectedInquiry.customColor}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-end gap-3">

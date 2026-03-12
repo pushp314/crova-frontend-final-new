@@ -28,15 +28,33 @@ const AdminProductForm = () => {
     const [collections, setCollections] = useState([]);
     const [selectedCollections, setSelectedCollections] = useState([]);
     const [selectedSizes, setSelectedSizes] = useState([]);
+    const [selectedColors, setSelectedColors] = useState([]);
     const [discount, setDiscount] = useState('');
 
     const commonSizes = ['S', 'M', 'L', 'XL', 'XXL', 'Free Size'];
+    const commonColors = [
+        { name: 'Pure White', value: '#FFFFFF' },
+        { name: 'Jet Black', value: '#000000' },
+        { name: 'Navy Blue', value: '#000080' },
+        { name: 'Royal Red', value: '#E31E24' },
+        { name: 'Forest Green', value: '#228B22' },
+        { name: 'Heather Grey', value: '#808080' },
+        { name: 'Beige', value: '#F5F5DC' }
+    ];
 
     const toggleSize = (size) => {
         setSelectedSizes(prev =>
             prev.includes(size)
                 ? prev.filter(s => s !== size)
                 : [...prev, size]
+        );
+    };
+
+    const toggleColor = (colorName) => {
+        setSelectedColors(prev =>
+            prev.includes(colorName)
+                ? prev.filter(c => c !== colorName)
+                : [...prev, colorName]
         );
     };
 
@@ -96,10 +114,12 @@ const AdminProductForm = () => {
                     setSelectedCollections(product.collections.map(c => c.id));
                 }
 
-                // Set sizes
+                // Set sizes and colors
                 if (product.variants) {
                     const sizes = [...new Set(product.variants.map(v => v.size))];
+                    const colors = [...new Set(product.variants.map(v => v.color))].filter(c => c !== 'Default');
                     setSelectedSizes(sizes);
+                    setSelectedColors(colors);
                 }
 
                 // Calculate discount
@@ -186,6 +206,7 @@ const AdminProductForm = () => {
             data.append('stock', formData.stock);
             data.append('isActive', formData.isActive);
             data.append('sizes', JSON.stringify(selectedSizes));
+            data.append('colors', JSON.stringify(selectedColors));
 
             selectedCollections.forEach(id => {
                 data.append('collections[]', id);
@@ -372,33 +393,63 @@ const AdminProductForm = () => {
                     </div>
                 </div>
 
-                {/* Sizes */}
-                <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-6">
-                    <div className="flex justify-between items-center">
-                        <h2 className="text-lg font-semibold">Available Sizes</h2>
-                        <span className="text-xs text-gray-500">Pick sizes for this product</span>
+                {/* Sizes & Colors */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Sizes */}
+                    <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-6">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-lg font-semibold">Available Sizes</h2>
+                            <span className="text-xs text-gray-500">Pick sizes</span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                            {commonSizes.map(size => (
+                                <label key={size} className={`flex items-center justify-center p-2 rounded-lg border cursor-pointer transition-all ${selectedSizes.includes(size)
+                                    ? 'border-black bg-black text-white'
+                                    : 'border-gray-200 hover:border-gray-300'
+                                    }`}>
+                                    <input
+                                        type="checkbox"
+                                        className="hidden"
+                                        checked={selectedSizes.includes(size)}
+                                        onChange={() => toggleSize(size)}
+                                    />
+                                    <span className="text-sm font-bold">{size}</span>
+                                </label>
+                            ))}
+                        </div>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        {commonSizes.map(size => (
-                            <label key={size} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${selectedSizes.includes(size)
-                                ? 'border-black bg-gray-50 ring-1 ring-black'
-                                : 'border-gray-200 hover:border-gray-300'
-                                }`}>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedSizes.includes(size)}
-                                    onChange={() => toggleSize(size)}
-                                    className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
-                                />
-                                <span className="text-sm font-medium text-gray-700">{size}</span>
-                            </label>
-                        ))}
+
+                    {/* Colors */}
+                    <div className="bg-white p-6 rounded-xl border border-gray-200 space-y-6">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-lg font-semibold">Product Colors</h2>
+                            <span className="text-xs text-gray-500">Pick base colors</span>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                            {commonColors.map(color => (
+                                <button
+                                    key={color.name}
+                                    type="button"
+                                    onClick={() => toggleColor(color.name)}
+                                    title={color.name}
+                                    className={`w-10 h-10 rounded-full border-2 transition-all flex items-center justify-center ${selectedColors.includes(color.name)
+                                        ? 'border-black scale-110 shadow-md'
+                                        : 'border-transparent hover:scale-105'
+                                        }`}
+                                    style={{ backgroundColor: color.value === '#FFFFFF' ? '#F9F9F9' : color.value }}
+                                >
+                                    {selectedColors.includes(color.name) && (
+                                        <div className={`w-2 h-2 rounded-full ${color.name === 'Pure White' || color.name === 'Beige' ? 'bg-black' : 'bg-white'}`} />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                        {selectedColors.length > 0 && (
+                            <p className="text-xs text-gray-500 italic">
+                                Selected: {selectedColors.join(', ')}
+                            </p>
+                        )}
                     </div>
-                    {selectedSizes.length === 0 && (
-                        <p className="text-xs text-amber-600 bg-amber-50 p-2 rounded">
-                            No sizes selected. Default will be 'Free Size'.
-                        </p>
-                    )}
                 </div>
 
                 {/* Images */}
