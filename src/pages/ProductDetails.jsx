@@ -88,7 +88,6 @@ const ProductView = () => {
 
     const [selectedSize, setSelectedSize] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
-    const [customColor, setCustomColor] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
 
@@ -140,7 +139,7 @@ const ProductView = () => {
     const handleAddToCart = async () => {
         if (!currentVariant) return;
         try {
-            await addToCart(currentVariant.id, quantity, customColor);
+            await addToCart(currentVariant.id, quantity);
             setIsAdded(true);
             setTimeout(() => setIsAdded(false), 2000);
         } catch (error) {
@@ -187,6 +186,22 @@ const ProductView = () => {
             variants={pageVariants}
         >
             <Helmet>
+                <title>{product?.name} | Crova</title>
+                <meta name="description" content={product?.description?.replace(/<[^>]*>?/gm, '').substring(0, 160)} />
+                
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="product" />
+                <meta property="og:title" content={product?.name} />
+                <meta property="og:description" content={product?.description?.replace(/<[^>]*>?/gm, '').substring(0, 160)} />
+                <meta property="og:image" content={mainImage} />
+                <meta property="og:url" content={window.location.href} />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={product?.name} />
+                <meta name="twitter:description" content={product?.description?.replace(/<[^>]*>?/gm, '').substring(0, 160)} />
+                <meta name="twitter:image" content={mainImage} />
+
                 <script type="application/ld+json">
                     {JSON.stringify(structuredData)}
                 </script>
@@ -211,8 +226,6 @@ const ProductView = () => {
                             availableSizes={availableSizes}
                             selectedSize={selectedSize}
                             setSelectedSize={setSelectedSize}
-                            customColor={customColor}
-                            setCustomColor={setCustomColor}
                             quantity={quantity}
                             handleQuantityChange={handleQuantityChange}
                             handleAddToCart={handleAddToCart}
