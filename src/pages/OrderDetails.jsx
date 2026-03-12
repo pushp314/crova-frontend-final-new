@@ -126,9 +126,12 @@ const OrderDetails = () => {
                                         </div>
                                         <div className="flex-1">
                                             <h4 className="font-bold text-lg uppercase tracking-tight leading-none mb-2">{item.variant?.product?.name}</h4>
-                                            <div className="flex items-center gap-4 text-sm text-gray-500 uppercase tracking-wide">
+                                            <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm text-gray-500 uppercase tracking-wide">
                                                 <p>Size: <span className="text-black font-bold">{item.variant?.size}</span></p>
                                                 <p>Qty: <span className="text-black font-bold">{item.quantity}</span></p>
+                                                {item.customColor && (
+                                                    <p>Cloth: <span className="text-black font-bold">{item.customColor}</span></p>
+                                                )}
                                             </div>
                                             <p className="mt-4 font-bold text-gray-900">₹{item.price}</p>
                                         </div>

@@ -24,8 +24,8 @@ export const useAddToCart = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ variantId, quantity }) => {
-            const { data } = await api.post('/cart/add', { variantId, quantity });
+        mutationFn: async ({ variantId, quantity, customColor }) => {
+            const { data } = await api.post('/cart/add', { variantId, quantity, customColor });
             return data;
         },
         onSuccess: (data) => {
@@ -44,8 +44,8 @@ export const useUpdateCartItem = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ variantId, quantity }) => {
-            const { data } = await api.put('/cart/update', { variantId, quantity });
+        mutationFn: async ({ variantId, quantity, customColor }) => {
+            const { data } = await api.put('/cart/update', { variantId, quantity, customColor });
             return data;
         },
         onSuccess: (data) => {
@@ -63,8 +63,9 @@ export const useRemoveFromCart = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (variantId) => {
-            const { data } = await api.delete(`/cart/remove/${variantId}`);
+        mutationFn: async ({ variantId, customColor }) => {
+            const colorQuery = customColor ? `?customColor=${encodeURIComponent(customColor)}` : '';
+            const { data } = await api.delete(`/cart/remove/${variantId}${colorQuery}`);
             return data;
         },
         onSuccess: (data) => {

@@ -9,22 +9,24 @@ const Cart = () => {
     const { user, openAuthModal } = useAuth();
     const [updatingItems, setUpdatingItems] = React.useState(new Set());
 
-    const handleUpdateQuantity = async (variantId, newQuantity) => {
-        setUpdatingItems(prev => new Set(prev).add(variantId));
-        await updateQuantity(variantId, newQuantity);
+    const handleUpdateQuantity = async (variantId, newQuantity, customColor) => {
+        const itemKey = `${variantId}-${customColor || 'default'}`;
+        setUpdatingItems(prev => new Set(prev).add(itemKey));
+        await updateQuantity(variantId, newQuantity, customColor);
         setUpdatingItems(prev => {
             const next = new Set(prev);
-            next.delete(variantId);
+            next.delete(itemKey);
             return next;
         });
     };
 
-    const handleRemove = async (variantId) => {
-        setUpdatingItems(prev => new Set(prev).add(variantId));
-        await removeFromCart(variantId);
+    const handleRemove = async (variantId, customColor) => {
+        const itemKey = `${variantId}-${customColor || 'default'}`;
+        setUpdatingItems(prev => new Set(prev).add(itemKey));
+        await removeFromCart(variantId, customColor);
         setUpdatingItems(prev => {
             const next = new Set(prev);
-            next.delete(variantId);
+            next.delete(itemKey);
             return next;
         });
     };
@@ -85,31 +87,37 @@ const Cart = () => {
                                     <h3 className="font-medium">{item.product?.name || 'Product Unavailable'}</h3>
                                     <p>₹{(parseFloat(item.product?.price || 0) * item.quantity).toFixed(2)}</p>
                                 </div>
-                                <p className="text-sm text-secondary mb-4">
+                                <p className="text-sm text-secondary mb-1">
                                     {item.variant ? `${item.variant.size} / ${item.variant.color}` : 'Variant Unavailable'}
                                 </p>
+                                {item.customColor && (
+                                    <p className="text-xs mb-3 flex items-center gap-1.5">
+                                        <span className="text-gray-400 uppercase font-semibold">Cloth:</span>
+                                        <span className="font-medium text-black">{item.customColor}</span>
+                                    </p>
+                                )}
 
                                 <div className="flex items-center gap-4">
                                     <div className="flex items-center border border-gray-200">
                                         <button
-                                            onClick={() => handleUpdateQuantity(item.variantId, Math.max(1, item.quantity - 1))}
-                                            disabled={updatingItems.has(item.variantId) || !item.variant}
+                                            onClick={() => handleUpdateQuantity(item.variantId, Math.max(1, item.quantity - 1), item.customColor)}
+                                            disabled={updatingItems.has(`${item.variantId}-${item.customColor || 'default'}`) || !item.variant}
                                             className="px-3 py-1 hover:bg-gray-50 disabled:opacity-50"
                                         >
                                             -
                                         </button>
                                         <span className="px-3 py-1 min-w-[3ch] text-center">{item.quantity}</span>
                                         <button
-                                            onClick={() => handleUpdateQuantity(item.variantId, item.quantity + 1)}
-                                            disabled={updatingItems.has(item.variantId) || !item.variant}
+                                            onClick={() => handleUpdateQuantity(item.variantId, item.quantity + 1, item.customColor)}
+                                            disabled={updatingItems.has(`${item.variantId}-${item.customColor || 'default'}`) || !item.variant}
                                             className="px-3 py-1 hover:bg-gray-50 disabled:opacity-50"
                                         >
                                             +
                                         </button>
                                     </div>
                                     <button
-                                        onClick={() => handleRemove(item.variantId)}
-                                        disabled={updatingItems.has(item.variantId)}
+                                        onClick={() => handleRemove(item.variantId, item.customColor)}
+                                        disabled={updatingItems.has(`${item.variantId}-${item.customColor || 'default'}`)}
                                         className="text-sm underline text-red-500 disabled:opacity-50"
                                     >
                                         Remove

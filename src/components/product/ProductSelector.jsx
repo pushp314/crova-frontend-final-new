@@ -18,8 +18,21 @@ const ProductSelector = ({
     handleQuantityChange,
     handleAddToCart,
     isOutOfStock,
-    isAdded
+    isAdded,
+    customColor,
+    setCustomColor
 }) => {
+    const paletteColors = [
+        { name: 'Peach', hex: '#FFDAB9' },
+        { name: 'Lavender', hex: '#E6E6FA' },
+        { name: 'Sage', hex: '#B2AC88' },
+        { name: 'Dusty Rose', hex: '#DCAE96' },
+        { name: 'Sky Blue', hex: '#87CEEB' },
+        { name: 'Cream', hex: '#FFFDD0' },
+        { name: 'Charcoal', hex: '#36454F' },
+        { name: 'Mint', hex: '#98FF98' }
+    ];
+
     const { user } = useAuth();
     const { data: wishlistData } = useWishlist({ enabled: !!user });
     const { mutate: addToWishlist } = useAddToWishlist();
@@ -97,6 +110,49 @@ const ProductSelector = ({
                         </div>
                     </motion.div>
                 )}
+
+                {/* Custom Color Palette (Optional) */}
+                <motion.div variants={itemVariants} className="pt-4 border-t border-gray-100">
+                    <div className="flex justify-between items-center mb-4">
+                        <span className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                            Custom Cloth Color <span className="text-[10px] text-gray-400 font-normal">(Optional)</span>
+                        </span>
+                        {customColor && (
+                            <button 
+                                onClick={() => setCustomColor(null)}
+                                className="text-xs text-gray-500 underline hover:text-black transition-colors"
+                            >
+                                Reset
+                            </button>
+                        )}
+                    </div>
+                    <div className="flex flex-wrap gap-4">
+                        {paletteColors.map((color) => (
+                            <button
+                                key={color.name}
+                                onClick={() => setCustomColor(color.name)}
+                                className={`group relative flex flex-col items-center gap-2 transition-transform duration-300 ${
+                                    customColor === color.name ? 'scale-110' : 'hover:scale-105'
+                                }`}
+                                title={color.name}
+                            >
+                                <div 
+                                    className={`w-10 h-10 rounded-full border-2 transition-all duration-300 shadow-sm ${
+                                        customColor === color.name 
+                                            ? 'border-black ring-2 ring-black/5 ring-offset-2' 
+                                            : 'border-transparent group-hover:border-gray-300'
+                                    }`}
+                                    style={{ backgroundColor: color.hex }}
+                                />
+                                <span className={`text-[10px] font-medium transition-colors ${
+                                    customColor === color.name ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'
+                                }`}>
+                                    {color.name}
+                                </span>
+                            </button>
+                        ))}
+                    </div>
+                </motion.div>
             </div>
 
             {/* Actions */}

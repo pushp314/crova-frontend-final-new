@@ -88,6 +88,7 @@ const ProductView = () => {
 
     const [selectedSize, setSelectedSize] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
+    const [customColor, setCustomColor] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
 
@@ -139,7 +140,7 @@ const ProductView = () => {
     const handleAddToCart = async () => {
         if (!currentVariant) return;
         try {
-            await addToCart(currentVariant.id, quantity);
+            await addToCart(currentVariant.id, quantity, customColor);
             setIsAdded(true);
             setTimeout(() => setIsAdded(false), 2000);
         } catch (error) {
@@ -210,6 +211,8 @@ const ProductView = () => {
                             availableSizes={availableSizes}
                             selectedSize={selectedSize}
                             setSelectedSize={setSelectedSize}
+                            customColor={customColor}
+                            setCustomColor={setCustomColor}
                             quantity={quantity}
                             handleQuantityChange={handleQuantityChange}
                             handleAddToCart={handleAddToCart}

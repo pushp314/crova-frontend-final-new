@@ -28,22 +28,22 @@ export const CartProvider = ({ children }) => {
     const loading = cartLoading;
 
     // Adapters to match existing Context API
-    const addToCart = async (variantId, quantity) => {
+    const addToCart = async (variantId, quantity, customColor) => {
         if (!user) {
             openAuthModal();
             throw new Error('User not authenticated');
         }
-        return addToCartMutation({ variantId, quantity });
+        return addToCartMutation({ variantId, quantity, customColor });
     };
 
-    const removeFromCart = async (itemId) => {
+    const removeFromCart = async (itemId, customColor) => {
         if (!user) return;
-        return removeFromCartMutation(itemId);
+        return removeFromCartMutation({ variantId: itemId, customColor });
     };
 
-    const updateQuantity = async (itemId, quantity) => {
+    const updateQuantity = async (itemId, quantity, customColor) => {
         if (!user) return;
-        return updateQuantityMutation({ variantId: itemId, quantity });
+        return updateQuantityMutation({ variantId: itemId, quantity, customColor });
     };
 
     const clearCart = async () => {

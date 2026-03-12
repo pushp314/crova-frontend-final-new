@@ -11,7 +11,19 @@ const CustomDesign = () => {
         description: '',
     });
     const [images, setImages] = useState([]);
+    const [customColor, setCustomColor] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const paletteColors = [
+        { name: 'Peach', hex: '#FFDAB9' },
+        { name: 'Lavender', hex: '#E6E6FA' },
+        { name: 'Sage', hex: '#B2AC88' },
+        { name: 'Dusty Rose', hex: '#DCAE96' },
+        { name: 'Sky Blue', hex: '#87CEEB' },
+        { name: 'Cream', hex: '#FFFDD0' },
+        { name: 'Charcoal', hex: '#36454F' },
+        { name: 'Mint', hex: '#98FF98' }
+    ];
 
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,6 +59,7 @@ const CustomDesign = () => {
             data.append('email', formData.email);
             data.append('phone', formData.phone);
             data.append('description', formData.description);
+            if (customColor) data.append('customColor', customColor);
 
             images.forEach((img) => {
                 data.append('images', img.file);
@@ -61,6 +74,7 @@ const CustomDesign = () => {
             toast.success("Design inquiry sent! We'll contact you shortly.");
             setFormData({ name: '', email: '', phone: '', description: '' });
             setImages([]);
+            setCustomColor(null);
         } catch (error) {
             console.error('Submission error:', error);
             toast.error("Failed to submit inquiry. Please try again.");
@@ -179,6 +193,50 @@ const CustomDesign = () => {
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-colors resize-none"
                             placeholder="Tell us about the fabric, fit, slogan, or any specific details you have in mind..."
                         ></textarea>
+                    </div>
+
+                    {/* Color Palette Selection */}
+                    <div className="space-y-4 pt-4 border-t border-gray-100">
+                        <div className="flex justify-between items-center">
+                            <label className="text-sm font-medium ml-1 uppercase tracking-wider text-gray-500">
+                                Preferred Base Color <span className="text-[10px] font-normal">(Optional)</span>
+                            </label>
+                            {customColor && (
+                                <button 
+                                    type="button"
+                                    onClick={() => setCustomColor(null)}
+                                    className="text-xs text-gray-400 hover:text-black transition-colors underline"
+                                >
+                                    Clear Selection
+                                </button>
+                            )}
+                        </div>
+                        <div className="flex flex-wrap gap-4">
+                            {paletteColors.map((color) => (
+                                <button
+                                    key={color.name}
+                                    type="button"
+                                    onClick={() => setCustomColor(color.name)}
+                                    className={`group flex flex-col items-center gap-2 transition-all duration-300 ${
+                                        customColor === color.name ? 'scale-110' : 'hover:scale-105'
+                                    }`}
+                                >
+                                    <div 
+                                        className={`w-12 h-12 rounded-full border-2 transition-all duration-300 shadow-sm ${
+                                            customColor === color.name 
+                                                ? 'border-black ring-4 ring-black/5 ring-offset-2' 
+                                                : 'border-transparent group-hover:border-gray-200'
+                                        }`}
+                                        style={{ backgroundColor: color.hex }}
+                                    />
+                                    <span className={`text-[10px] font-semibold transition-colors uppercase tracking-tight ${
+                                        customColor === color.name ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'
+                                    }`}>
+                                        {color.name}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     <button
